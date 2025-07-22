@@ -4,17 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FotoConvierto - Sube tu foto</title>
-  <meta name="description" content="Sube tu foto fácilmente y visualízala al instante. Una herramienta simple, rápida y gratuita.">
+  <meta name="description" content="Sube tu foto fácilmente y visualízala al instante.">
   <meta name="author" content="Tu Nombre o Empresa">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#ff6600">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Sube tu foto</h1>
-  <input type="file" id="fileInput" accept="image/*">
-  <div id="preview">Aquí verás tu imagen</div>
-
+  <div class="card">
+    <h1>📸 Sube tu foto</h1>
+    <label for="fileInput" class="upload-btn">Elegir imagen</label>
+    <input type="file" id="fileInput" accept="image/*">
+    <div id="preview">Aquí verás tu imagen</div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
+
