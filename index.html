@@ -5,20 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FotoConvierto - Sube tu foto</title>
   <meta name="description" content="Sube tu foto fácilmente y visualízala al instante.">
-  <meta name="author" content="Nelson Pullella">
+  <meta name="author" content="Tu Nombre o Empresa">
   <meta name="theme-color" content="#ff6600">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css">
+  <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="card">
     <h1>📸 Sube tu foto</h1>
+    <!-- Etiqueta label asociada al input (id correcto) -->
     <label for="fileInput" class="upload-btn">Elegir imagen</label>
     <input type="file" id="fileInput" accept="image/*">
     <div id="preview">Aquí verás tu imagen</div>
   </div>
+  <!-- El script se carga al final para asegurar que el DOM ya existe -->
   <script src="script.js"></script>
 </body>
 </html>
-
