@@ -13,15 +13,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="card">
-    <h1>📸 Sube tu foto</h1>
-    <!-- Etiqueta label asociada al input (id correcto) -->
-    <label for="fileInput" class="upload-btn">Elegir imagen</label>
-    <input type="file" id="fileInput" accept="image/*">
-    <div id="preview">Aquí verás tu imagen</div>
-    <button id="clearBtn">Borrar imagen</button>
-  </div>
-  <!-- El script se carga al final para asegurar que el DOM ya existe -->
+  <header class="header">
+    <h1>FotoConvierto 🖼️</h1>
+  </header>
+  <main class="container">
+    <div class="card">
+      <h2>Sube una nueva foto</h2>
+      <label for="fileInput" class="upload-btn">Elegir imagen</label>
+      <input type="file" id="fileInput" accept="image/*">
+      <div id="preview">Aquí verás tu imagen</div>
+      <button id="clearBtn">Borrar previsualización</button>
+    </div>
+    <div class="gallery-container">
+      <h2>Mi galería</h2>
+      <div id="gallery"></div>
+      <button id="clearGalleryBtn" class="danger-btn">Borrar galería</button>
+    </div>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
