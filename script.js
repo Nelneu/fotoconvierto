@@ -3,6 +3,9 @@ const fileInput = document.getElementById('fileInput');
 const preview = document.getElementById('preview');
 const clearBtn = document.getElementById('clearBtn');
 const downloadLink = document.getElementById('downloadLink');
+const progressContainer = document.getElementById('progress-container');
+const progressBar = document.getElementById('progress-bar');
+const statusText = document.getElementById('status-text');
 
 // Función para activar el botón de descarga
 function activarDescarga(imgData, filename) {
@@ -30,10 +33,34 @@ if (ultimaImagen) {
 
 fileInput.addEventListener('change', () => {
   const file = fileInput.files[0];
+  statusText.textContent = ''; // Limpiar texto de estado anterior
+  progressContainer.style.display = 'none'; // Ocultar por si acaso
+
   if (file && file.type.startsWith('image/')) {
     const reader = new FileReader();
+
+    reader.onloadstart = function() {
+      progressBar.style.width = '0%';
+      progressContainer.style.display = 'block';
+    };
+
+    reader.onprogress = function(e) {
+      if (e.lengthComputable) {
+        const progress = Math.round((e.loaded / e.total) * 100);
+        progressBar.style.width = progress + '%';
+      }
+    };
+
     reader.onload = function (e) {
       const imgData = e.target.result;
+
+      // Finalizar y mostrar mensaje de carga completa
+      progressBar.style.width = '100%';
+      statusText.textContent = 'Carga completa';
+      setTimeout(() => {
+        progressContainer.style.display = 'none';
+        statusText.textContent = '';
+      }, 1500);
 
       // ✅ 2. Mostrar imagen y nombre
       preview.innerHTML = `<img src="${imgData}" alt="Imagen cargada">`;
@@ -52,6 +79,7 @@ fileInput.addEventListener('change', () => {
     preview.innerHTML = "Archivo no válido";
     preview.style.border = "2px dashed #ccc";
     desactivarDescarga();
+    progressContainer.style.display = 'none';
   }
 });
 
@@ -64,6 +92,8 @@ clearBtn.addEventListener('click', () => {
   localStorage.removeItem("ultimaImagen");
   localStorage.removeItem("ultimaImagenNombre");
 
-  // Ocultar botón de descarga
+  // Ocultar botón de descarga y progreso
   desactivarDescarga();
+  progressContainer.style.display = 'none';
+  statusText.textContent = '';
 });

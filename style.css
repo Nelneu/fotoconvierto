@@ -84,3 +84,29 @@ input[type="file"] {
 #clearBtn:hover {
   background: #cc0000;
 }
+
+/* Estilos para la barra de progreso */
+#progress-container {
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  margin: 15px 0 5px; /* Ajuste de margen */
+  overflow: hidden; /* Asegura que la barra interior no se salga */
+  display: none; /* Oculto por defecto */
+}
+
+#progress-bar {
+  width: 0%;
+  height: 12px;
+  background-color: #4caf50; /* Verde éxito */
+  border-radius: 8px;
+  transition: width 0.4s ease-in-out; /* Animación suave */
+}
+
+#status-text {
+  height: 20px;
+  font-size: 14px;
+  color: #28a745; /* Verde */
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
