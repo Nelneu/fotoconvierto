@@ -13,22 +13,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="card">
-    <h1>📸 Sube tu foto</h1>
-    <!-- Etiqueta label asociada al input (id correcto) -->
-    <label for="fileInput" class="upload-btn">Elegir imagen</label>
-    <input type="file" id="fileInput" accept="image/*">
+  <header class="header">
+    <h1>FotoConvierto 🖼️</h1>
+  </header>
+  <main class="container">
+    <div class="card">
+      <h2>Sube una nueva foto</h2>
+      <label for="fileInput" class="upload-btn">Elegir imagen</label>
+      <input type="file" id="fileInput" accept="image/*">
 
-    <!-- Barra de Progreso -->
-    <div id="progress-container">
-      <div id="progress-bar"></div>
+      <!-- Barra de Progreso (Merged from my branch) -->
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+      </div>
+      <div id="status-text"></div>
+
+      <div id="preview">Aquí verás tu imagen</div>
+      <button id="clearBtn">Borrar previsualización</button>
+
+      <!-- Download Link (Merged from my branch) -->
+      <a id="downloadLink" class="upload-btn" style="display: none; background-color: #28a745; margin-top: 10px;" href="#">Descargar Imagen</a>
     </div>
-    <div id="status-text"></div>
-
-    <div id="preview">Aquí verás tu imagen</div>
-    <button id="clearBtn">Borrar imagen</button>
-    <a id="downloadLink" class="upload-btn" style="display: none; background-color: #28a745; margin-top: 10px;" href="#">Descargar Imagen</a>
-  </div>
+    <div class="gallery-container">
+      <h2>Mi galería</h2>
+      <div id="gallery"></div>
+      <button id="clearGalleryBtn" class="danger-btn">Borrar galería</button>
+    </div>
+  </main>
   <!-- El script se carga al final para asegurar que el DOM ya existe -->
   <script src="script.js"></script>
 </body>
