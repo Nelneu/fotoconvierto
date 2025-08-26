@@ -2,49 +2,32 @@
 const fileInput = document.getElementById('fileInput');
 const preview = document.getElementById('preview');
 const clearBtn = document.getElementById('clearBtn');
-const gallery = document.getElementById('gallery');
-const clearGalleryBtn = document.getElementById('clearGalleryBtn');
+const downloadLink = document.getElementById('downloadLink');
 
-const GALLERY_STORAGE_KEY = 'imageGallery';
-
-// --- Funciones ---
-
-/**
- * Carga la galería de imágenes desde localStorage.
- * @returns {string[]} Un array de imágenes en formato base64.
- */
-function getGallery() {
-  const storedGallery = localStorage.getItem(GALLERY_STORAGE_KEY);
-  return storedGallery ? JSON.parse(storedGallery) : [];
+// --- Funciones de ayuda ---
+function activarDescarga(imgData, filename) {
+  downloadLink.href = imgData;
+  downloadLink.download = filename;
+  downloadLink.style.display = 'inline-block';
 }
 
-/**
- * Guarda la galería de imágenes en localStorage.
- * @param {string[]} images - El array de imágenes a guardar.
- */
-function saveGallery(images) {
-  localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(images));
+function desactivarDescarga() {
+  downloadLink.style.display = 'none';
 }
 
-/**
- * Renderiza la galería en el DOM.
- */
-function renderGallery() {
-  const images = getGallery();
-  gallery.innerHTML = ''; // Limpiar la galería antes de renderizar
-  if (images.length === 0) {
-    gallery.innerHTML = '<p>No hay imágenes en tu galería. ¡Sube una!</p>';
-    clearGalleryBtn.style.display = 'none';
-  } else {
-    images.forEach(imgData => {
-      const imgElement = document.createElement('img');
-      imgElement.src = imgData;
-      imgElement.alt = 'Imagen de la galería';
-      imgElement.classList.add('gallery-item');
-      gallery.appendChild(imgElement);
-    });
-    clearGalleryBtn.style.display = 'block';
+
+// ✅ 1. Mostrar la última imagen guardada al cargar la página
+const ultimaImagen = localStorage.getItem("ultimaImagen");
+const ultimaImagenNombre = localStorage.getItem("ultimaImagenNombre");
+
+if (ultimaImagen) {
+  preview.innerHTML = `<img src="${ultimaImagen}" alt="Imagen guardada">`;
+  if (ultimaImagenNombre) {
+    preview.innerHTML += `<p style="font-size: 12px; color: #555;">${ultimaImagenNombre}</p>`;
   }
+  preview.style.border = "2px solid green";
+  activarDescarga(ultimaImagen, ultimaImagenNombre || 'imagen-guardada.png');
+
 }
 
 /**
@@ -65,34 +48,38 @@ fileInput.addEventListener('change', () => {
     reader.onload = function (e) {
       const imgData = e.target.result;
 
-      // 1. Mostrar en previsualización
+      // ✅ 2. Mostrar imagen y nombre
       preview.innerHTML = `<img src="${imgData}" alt="Imagen cargada">`;
-      preview.style.border = "2px solid #28a745"; // Verde para éxito
+      preview.innerHTML += `<p style="font-size: 12px; color: #555;">${file.name}</p>`;
+      preview.style.border = "2px solid green";
 
-      // 2. Guardar en la galería
-      const images = getGallery();
-      images.push(imgData);
-      saveGallery(images);
+      // ✅ 3. Guardar en localStorage
+      localStorage.setItem("ultimaImagen", imgData);
+      localStorage.setItem("ultimaImagenNombre", file.name);
 
-      // 3. Actualizar la galería en el DOM
-      renderGallery();
+      // Activar el botón de descarga
+      activarDescarga(imgData, file.name);
+
     };
     reader.readAsDataURL(file);
   } else {
     preview.innerHTML = "Archivo no válido";
-    preview.style.border = "2px dashed #dc3545"; // Rojo para error
+    preview.style.border = "2px dashed #ccc";
+    desactivarDescarga();
+
   }
 });
 
 clearBtn.addEventListener('click', clearPreview);
 
-clearGalleryBtn.addEventListener('click', () => {
-  // Pedir confirmación al usuario
-  if (confirm('¿Estás seguro de que quieres borrar toda la galería? Esta acción no se puede deshacer.')) {
-    localStorage.removeItem(GALLERY_STORAGE_KEY);
-    renderGallery();
-    clearPreview();
-  }
+feature/download-image
+  // ✅ 4. Borrar también de localStorage
+  localStorage.removeItem("ultimaImagen");
+  localStorage.removeItem("ultimaImagenNombre");
+
+  // Desactivar el botón de descarga
+  desactivarDescarga();
+
 });
 
 // --- Inicialización ---
