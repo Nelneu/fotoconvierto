@@ -1,4 +1,4 @@
-// Seleccionamos los elementos por su ID (coinciden con el HTML)
+// Elementos del DOM
 const fileInput = document.getElementById('fileInput');
 const preview = document.getElementById('preview');
 const clearBtn = document.getElementById('clearBtn');
@@ -27,7 +27,19 @@ if (ultimaImagen) {
   }
   preview.style.border = "2px solid green";
   activarDescarga(ultimaImagen, ultimaImagenNombre || 'imagen-guardada.png');
+
 }
+
+/**
+ * Limpia la previsualización de la imagen.
+ */
+function clearPreview() {
+  preview.innerHTML = "Aquí verás tu imagen";
+  preview.style.border = "2px dashed #ccc";
+  fileInput.value = ""; // Permite volver a seleccionar el mismo archivo
+}
+
+// --- Event Listeners ---
 
 fileInput.addEventListener('change', () => {
   const file = fileInput.files[0];
@@ -47,24 +59,30 @@ fileInput.addEventListener('change', () => {
 
       // Activar el botón de descarga
       activarDescarga(imgData, file.name);
+
     };
     reader.readAsDataURL(file);
   } else {
     preview.innerHTML = "Archivo no válido";
     preview.style.border = "2px dashed #ccc";
     desactivarDescarga();
+
   }
 });
 
-clearBtn.addEventListener('click', () => {
-  preview.innerHTML = "Aquí verás tu imagen";
-  preview.style.border = "2px dashed #ccc";
-  fileInput.value = "";
+clearBtn.addEventListener('click', clearPreview);
 
+feature/download-image
   // ✅ 4. Borrar también de localStorage
   localStorage.removeItem("ultimaImagen");
   localStorage.removeItem("ultimaImagenNombre");
 
   // Desactivar el botón de descarga
   desactivarDescarga();
+
 });
+
+// --- Inicialización ---
+
+// Renderizar la galería al cargar la página
+document.addEventListener('DOMContentLoaded', renderGallery);
