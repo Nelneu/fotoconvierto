@@ -73,4 +73,4 @@ MIT. Libre para usar y modificar.
 
 ### 👤 Autor
 
-Creado con ❤️ por **[Tu Nombre o Empresa]**
+Creado con ❤️ por **Nelson Pullella**
