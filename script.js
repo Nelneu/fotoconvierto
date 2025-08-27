@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         statusText.textContent = '¡Cargada con éxito!';
         statusText.classList.add('status-success');
-        progressBar.style.width = '100%';
 
         setTimeout(() => {
           progressContainer.style.display = 'none';
