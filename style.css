@@ -109,3 +109,8 @@ input[type="file"] {
   font-weight: 500;
   transition: opacity 0.3s ease;
 }
+
+.status-success {
+  color: #28a745; /* Verde éxito */
+  font-weight: 600;
+}
