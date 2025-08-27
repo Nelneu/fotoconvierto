@@ -46,13 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
       reader.onload = function (e) {
         const imgData = e.target.result;
 
-        statusText.textContent = 'Carga completa';
+        statusText.textContent = '¡Cargada con éxito!';
+        statusText.classList.add('status-success');
         progressBar.style.width = '100%';
 
         setTimeout(() => {
           progressContainer.style.display = 'none';
           statusText.textContent = '';
-        }, 1500);
+          statusText.classList.remove('status-success');
+        }, 2500);
 
         // ✅ 2. Mostrar imagen
         preview.innerHTML = `<img src="${imgData}" alt="Imagen cargada">`;
