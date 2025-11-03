@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
       preview.innerHTML = "Archivo no válido. Por favor, elige una imagen.";
       preview.style.border = "2px dashed #ccc";
       fileInput.value = "";
+      localStorage.removeItem("ultimaImagen"); // Limpiar imagen almacenada si el nuevo archivo es inválido
     }
   });
 

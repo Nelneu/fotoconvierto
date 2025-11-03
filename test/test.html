@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test for localStorage bug</title>
+</head>
+<body>
+    <h1>Test for localStorage Bug</h1>
+    <div id="status">Running test...</div>
+
+    <!-- Minimal DOM elements required for script.js to run -->
+    <input type="file" id="fileInput" style="display:none;">
+    <div id="preview" style="display:none;"></div>
+    <button id="clearBtn" style="display:none;"></button>
+    <div id="progress-container" style="display: none;">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="status-text" style="display:none;"></div>
+
+    <script src="../script.js"></script>
+    <script>
+        function runTest() {
+            console.log("Running test...");
+            const statusDiv = document.getElementById('status');
+
+            // Step 1: Simulate a successful image upload by putting data in localStorage
+            localStorage.setItem("ultimaImagen", "fake-image-data");
+            console.log("1. 'ultimaImagen' set in localStorage:", localStorage.getItem("ultimaImagen"));
+
+            // Step 2: Simulate an invalid file upload
+            const fileInput = document.getElementById('fileInput');
+            // Use a Blob for broader compatibility
+            const invalidFile = new File(["this is not an image"], "test.txt", { type: "text/plain" });
+
+            // We can't programmatically set the value of a file input for security reasons.
+            // However, we can mock the 'files' property on the input element for the test.
+            Object.defineProperty(fileInput, 'files', {
+                value: [invalidFile],
+                writable: true,
+            });
+
+            // Trigger the change event
+            const event = new Event('change');
+            fileInput.dispatchEvent(event);
+            console.log("2. Dispatched change event with invalid file.");
+
+            // Step 3: Verify that localStorage is cleared
+            // Use a short delay to allow the event handler to execute
+            setTimeout(() => {
+                const storedImage = localStorage.getItem("ultimaImagen");
+                if (storedImage === null) {
+                    console.log("3. TEST PASSED: 'ultimaImagen' was cleared from localStorage.");
+                    statusDiv.innerHTML = "<p style='color:green; font-weight:bold;'>TEST PASSED</p>";
+                } else {
+                    console.error("3. TEST FAILED: 'ultimaImagen' was not cleared. Value:", storedImage);
+                    statusDiv.innerHTML = "<p style='color:red; font-weight:bold;'>TEST FAILED</p>";
+                }
+            }, 100);
+        }
+
+        // Run the test after the main script has loaded and the DOM is ready
+        window.addEventListener('load', runTest);
+    </script>
+</body>
+</html>
