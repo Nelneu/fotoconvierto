@@ -6,6 +6,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressContainer = document.getElementById('progress-container');
   const progressBar = document.getElementById('progress-bar');
   const statusText = document.getElementById('status-text');
+  const themeSwitcher = document.querySelector('.theme-switcher');
+
+  // --- Lógica para el Selector de Temas ---
+  const applyTheme = (themeName) => {
+    document.body.className = `theme-${themeName}`;
+    // Actualizar el botón activo
+    themeSwitcher.querySelectorAll('button').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === themeName);
+    });
+    // Guardar el tema en localStorage
+    localStorage.setItem('theme', themeName);
+  };
+
+  themeSwitcher.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+      const themeName = e.target.dataset.theme;
+      applyTheme(themeName);
+    }
+  });
+
+  // Cargar el tema guardado al iniciar
+  const loadTheme = () => {
+    const savedTheme = localStorage.getItem('theme') || 'medium'; // 'medium' por defecto
+    applyTheme(savedTheme);
+  };
+
+  loadTheme();
+
 
   // ✅ 1. Mostrar la última imagen guardada al cargar la página
   try {
@@ -81,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
       preview.innerHTML = "Archivo no válido. Por favor, elige una imagen.";
       preview.style.border = "2px dashed #ccc";
       fileInput.value = "";
+      localStorage.removeItem("ultimaImagen"); // Limpiar imagen almacenada si el nuevo archivo es inválido
     }
   });
 

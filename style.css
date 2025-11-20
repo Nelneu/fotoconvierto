@@ -1,3 +1,44 @@
+:root {
+  /* Paleta Mediana (Original) */
+  --bg-gradient-start: #ff9966;
+  --bg-gradient-end: #ff5e62;
+  --card-bg: #fff;
+  --text-primary: #333;
+  --text-secondary: #777;
+  --primary-color: #ff6600;
+  --primary-hover: #e05500;
+  --danger-color: #ff4444;
+  --danger-hover: #cc0000;
+  --border-color: #ccc;
+  --preview-bg: #f8f8f8;
+  --progress-bar-bg: #e9ecef;
+  --success-color: #28a745;
+}
+
+body.theme-soft {
+  --bg-gradient-start: #a1c4fd;
+  --bg-gradient-end: #c2e9fb;
+  --primary-color: #5d9cec;
+  --primary-hover: #4a8cdb;
+  --danger-color: #ff8a80;
+  --danger-hover: #ff5252;
+}
+
+body.theme-strong {
+  --bg-gradient-start: #3E5151;
+  --bg-gradient-end: #1F1C18;
+  --card-bg: #2d2d2d;
+  --text-primary: #f5f5f5;
+  --text-secondary: #aaa;
+  --primary-color: #f09819;
+  --primary-hover: #d37e0c;
+  --danger-color: #e53935;
+  --danger-hover: #c62828;
+  --border-color: #555;
+  --preview-bg: #424242;
+  --progress-bar-bg: #555;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   display: flex;
@@ -5,28 +46,53 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  transition: background 0.5s ease;
 }
 
 .card {
-  background: #fff;
+  background: var(--card-bg);
   padding: 25px 30px;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   text-align: center;
   max-width: 300px;
   width: 90%;
+  transition: background-color 0.3s ease;
 }
 
 h1 {
   font-size: 1.4rem;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 15px;
+}
+
+.theme-switcher {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.theme-switcher button {
+  padding: 5px 10px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-primary);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.theme-switcher button.active {
+  background-color: var(--primary-color);
+  color: var(--card-bg);
+  border-color: var(--primary-color);
 }
 
 .upload-btn {
   display: inline-block;
-  background: #ff6600;
+  background: var(--primary-color);
   color: #fff;
   padding: 10px 20px;
   border-radius: 8px;
@@ -36,27 +102,27 @@ h1 {
 }
 
 .upload-btn:hover {
-  background: #e05500;
+  background: var(--primary-hover);
 }
 
 input[type="file"] {
-  display: none; /* oculta el botón original */
+  display: none;
 }
 
 #preview {
   width: 200px;
   height: 200px;
   border-radius: 12px;
-  border: 2px dashed #ccc;
+  border: 2px dashed var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   margin: 15px auto 0;
-  background: #f8f8f8;
-  color: #777;
+  background: var(--preview-bg);
+  color: var(--text-secondary);
   font-size: 14px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s, background-color 0.3s;
 }
 
 #preview img {
@@ -71,7 +137,7 @@ input[type="file"] {
 
 #clearBtn {
   margin-top: 10px;
-  background: #ff4444;
+  background: var(--danger-color);
   color: #fff;
   border: none;
   padding: 8px 15px;
@@ -82,13 +148,12 @@ input[type="file"] {
 }
 
 #clearBtn:hover {
-  background: #cc0000;
+  background: var(--danger-hover);
 }
 
-/* --- Estilos para la Barra de Progreso --- */
 #progress-container {
   width: 100%;
-  background-color: #e9ecef;
+  background-color: var(--progress-bar-bg);
   border-radius: 8px;
   margin: 15px 0 5px;
   overflow: hidden;
@@ -97,20 +162,20 @@ input[type="file"] {
 #progress-bar {
   width: 0%;
   height: 10px;
-  background-color: #ff6600; /* Color principal de la marca */
+  background-color: var(--primary-color);
   border-radius: 8px;
-  transition: width 0.4s ease-in-out; /* Animación vistosa */
+  transition: width 0.4s ease-in-out, background-color 0.3s;
 }
 
 #status-text {
   height: 20px;
   font-size: 14px;
-  color: #495057;
+  color: var(--text-secondary);
   font-weight: 500;
   transition: opacity 0.3s ease;
 }
 
 .status-success {
-  color: #28a745; /* Verde éxito */
+  color: var(--success-color);
   font-weight: 600;
 }
