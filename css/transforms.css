@@ -1,0 +1,306 @@
+/**
+ * transforms.css - Estilos para controles de transformaciones
+ *
+ * Incluye:
+ * - Botones de rotación y volteo
+ * - Grid layout para botones
+ * - Efectos hover y active
+ * - Responsive design
+ */
+
+/* =============================================
+   PANEL DE TRANSFORMACIONES
+   ============================================= */
+
+#transforms-panel {
+  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+}
+
+#transforms-panel h3 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+}
+
+/* =============================================
+   CONTENEDOR DE BOTONES
+   ============================================= */
+
+.transform-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* =============================================
+   BOTONES DE TRANSFORMACIÓN
+   ============================================= */
+
+.btn-transform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 15px 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de brillo al hover */
+.btn-transform::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn-transform:hover::before {
+  left: 100%;
+}
+
+/* Estados del botón */
+.btn-transform:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+.btn-transform:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+}
+
+.btn-transform:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-transform:disabled:hover {
+  transform: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Icono del botón */
+.btn-icon {
+  font-size: 28px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+}
+
+/* Label del botón */
+.btn-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* =============================================
+   COLORES ESPECÍFICOS POR BOTÓN
+   ============================================= */
+
+/* Rotar izquierda - Morado */
+#rotate-left {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+#rotate-left:hover {
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+}
+
+/* Rotar derecha - Azul */
+#rotate-right {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+#rotate-right:hover {
+  box-shadow: 0 6px 16px rgba(79, 172, 254, 0.5);
+}
+
+/* Voltear horizontal - Rosa */
+#flip-horizontal {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+#flip-horizontal:hover {
+  box-shadow: 0 6px 16px rgba(240, 147, 251, 0.5);
+}
+
+/* Voltear vertical - Verde */
+#flip-vertical {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+#flip-vertical:hover {
+  box-shadow: 0 6px 16px rgba(79, 172, 254, 0.5);
+}
+
+/* =============================================
+   ANIMACIONES
+   ============================================= */
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.btn-transform {
+  animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-fill-mode: both;
+}
+
+/* Delays escalonados para cada botón */
+#rotate-left {
+  animation-delay: 0.05s;
+}
+
+#rotate-right {
+  animation-delay: 0.1s;
+}
+
+#flip-horizontal {
+  animation-delay: 0.15s;
+}
+
+#flip-vertical {
+  animation-delay: 0.2s;
+}
+
+/* Animación al hacer click */
+@keyframes rotate-animation {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(15deg);
+  }
+}
+
+.btn-transform:active .btn-icon {
+  animation: rotate-animation 0.5s ease;
+}
+
+/* =============================================
+   RESPONSIVE DESIGN
+   ============================================= */
+
+@media (max-width: 768px) {
+  #transforms-panel {
+    padding: 15px;
+  }
+
+  .btn-transform {
+    padding: 12px 8px;
+    gap: 4px;
+  }
+
+  .btn-icon {
+    font-size: 24px;
+  }
+
+  .btn-label {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-row {
+    gap: 8px;
+  }
+
+  .btn-transform {
+    padding: 10px 6px;
+  }
+
+  .btn-icon {
+    font-size: 22px;
+  }
+
+  .btn-label {
+    font-size: 10px;
+    letter-spacing: 0.3px;
+  }
+}
+
+/* =============================================
+   MODO OSCURO (preparado para futuro)
+   ============================================= */
+
+@media (prefers-color-scheme: dark) {
+  #transforms-panel {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  }
+
+  #transforms-panel h3 {
+    color: #ecf0f1;
+  }
+}
+
+/* =============================================
+   ESTADOS ESPECIALES
+   ============================================= */
+
+/* Indicador visual cuando una transformación está activa */
+.btn-transform.active {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5),
+              0 6px 16px rgba(102, 126, 234, 0.4);
+}
+
+/* Efecto de pulso para destacar */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.btn-transform.highlight {
+  animation: pulse 1s infinite;
+}
