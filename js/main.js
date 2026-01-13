@@ -4,8 +4,10 @@
  * Inicializa la aplicación y gestiona los eventos de UI
  */
 
-// Instancia global del gestor de canvas
+// Instancias globales
 let canvasManager;
+let imageFilters;
+let uiControls;
 
 // Elementos del DOM
 let fileInput;
@@ -36,6 +38,22 @@ function initializeApp() {
     console.error('❌ Error al inicializar CanvasManager:', error);
     showStatus('Error al inicializar el editor', 'error');
     return;
+  }
+
+  // Inicializar ImageFilters
+  try {
+    imageFilters = new ImageFilters(canvasManager);
+    console.log('✅ ImageFilters inicializado correctamente');
+  } catch (error) {
+    console.error('❌ Error al inicializar ImageFilters:', error);
+  }
+
+  // Inicializar UIControls (se inicializa después del DOM completo)
+  try {
+    uiControls = new UIControls(imageFilters);
+    console.log('✅ UIControls inicializado correctamente');
+  } catch (error) {
+    console.error('❌ Error al inicializar UIControls:', error);
   }
 
   // Obtener referencias a elementos del DOM
@@ -117,6 +135,17 @@ function handleFileSelect(event) {
       // Guardar en localStorage
       canvasManager.saveToLocalStorage('ultimaImagen');
 
+      // Cargar filtros guardados (si existen) o aplicar los actuales
+      if (imageFilters) {
+        imageFilters.loadFromLocalStorage();
+        imageFilters.applyAllFilters();
+      }
+
+      // Habilitar controles
+      if (uiControls) {
+        uiControls.setEnabled(true);
+      }
+
       // Ocultar progreso después de un delay
       setTimeout(() => {
         hideProgress();
@@ -144,6 +173,16 @@ function handleClearImage() {
   // Limpiar localStorage
   canvasManager.removeFromLocalStorage('ultimaImagen');
 
+  // Resetear filtros
+  if (imageFilters) {
+    imageFilters.resetFilters();
+  }
+
+  // Deshabilitar controles
+  if (uiControls) {
+    uiControls.setEnabled(false);
+  }
+
   // Reset UI
   fileInput.value = '';
   hideProgress();
@@ -163,11 +202,27 @@ function loadLastImage() {
       console.log('✅ Última imagen restaurada desde localStorage');
       hidePlaceholder();
       showEditorControls();
+
+      // Cargar y aplicar filtros guardados
+      if (imageFilters) {
+        imageFilters.loadFromLocalStorage();
+        imageFilters.applyAllFilters();
+      }
+
+      // Habilitar controles
+      if (uiControls) {
+        uiControls.setEnabled(true);
+      }
     })
     .catch((error) => {
       // No hay imagen guardada o error al cargar (normal en primera visita)
       console.log('ℹ️ No hay imagen previa guardada');
       showPlaceholder();
+
+      // Deshabilitar controles si no hay imagen
+      if (uiControls) {
+        uiControls.setEnabled(false);
+      }
     });
 }
 

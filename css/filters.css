@@ -1,0 +1,317 @@
+/**
+ * filters.css - Estilos para controles de filtros
+ *
+ * Incluye:
+ * - Sliders personalizados
+ * - Labels y valores
+ * - Botones de resetear
+ * - Responsive design
+ */
+
+/* =============================================
+   PANEL DE FILTROS
+   ============================================= */
+
+#filters-panel {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#filters-panel h3 {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+}
+
+/* =============================================
+   CONTROLES DE FILTRO
+   ============================================= */
+
+.filter-control {
+  margin-bottom: 20px;
+}
+
+.filter-control:last-child {
+  margin-bottom: 0;
+}
+
+.filter-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #34495e;
+}
+
+.filter-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-value {
+  font-weight: 600;
+  color: #ff6600;
+  min-width: 50px;
+  text-align: right;
+}
+
+/* =============================================
+   SLIDERS PERSONALIZADOS
+   ============================================= */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #e0e0e0 0%, #e0e0e0 100%);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Efecto hover en el track */
+input[type="range"]:hover {
+  background: linear-gradient(to right, #d0d0d0 0%, #d0d0d0 100%);
+}
+
+/* Estilos específicos por filtro */
+#brightness {
+  background: linear-gradient(to right, #000000 0%, #ffff00 50%, #ffffff 100%);
+}
+
+#contrast {
+  background: linear-gradient(to right, #808080 0%, #000000 50%, #ffffff 100%);
+}
+
+#saturation {
+  background: linear-gradient(to right, #808080 0%, #ff6600 100%);
+}
+
+#blur {
+  background: linear-gradient(to right, #ffffff 0%, #cccccc 100%);
+}
+
+#grayscale {
+  background: linear-gradient(to right, #ff6600 0%, #808080 100%);
+}
+
+/* =============================================
+   THUMB (manija del slider)
+   ============================================= */
+
+/* Chrome, Safari, Edge */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff6600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #e05500;
+  transform: scale(1.2);
+  box-shadow: 0 3px 10px rgba(255, 102, 0, 0.5);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff6600;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: #e05500;
+  transform: scale(1.2);
+  box-shadow: 0 3px 10px rgba(255, 102, 0, 0.5);
+}
+
+input[type="range"]::-moz-range-thumb:active {
+  transform: scale(1.1);
+}
+
+/* =============================================
+   TRACK (carril del slider)
+   ============================================= */
+
+/* Firefox */
+input[type="range"]::-moz-range-track {
+  height: 8px;
+  border-radius: 4px;
+  background: transparent;
+}
+
+/* Chrome focus outline */
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2),
+              0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* =============================================
+   SLIDER DESHABILITADO
+   ============================================= */
+
+input[type="range"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+  background: #cccccc;
+}
+
+input[type="range"]:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+  background: #cccccc;
+}
+
+/* =============================================
+   BOTÓN RESETEAR
+   ============================================= */
+
+#reset-filters {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+#reset-filters:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+#reset-filters:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+#reset-filters:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =============================================
+   ANIMACIONES
+   ============================================= */
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.filter-control {
+  animation: slideInRight 0.3s ease;
+  animation-fill-mode: both;
+}
+
+/* Delays escalonados para cada control */
+.filter-control:nth-child(1) { animation-delay: 0.05s; }
+.filter-control:nth-child(2) { animation-delay: 0.1s; }
+.filter-control:nth-child(3) { animation-delay: 0.15s; }
+.filter-control:nth-child(4) { animation-delay: 0.2s; }
+.filter-control:nth-child(5) { animation-delay: 0.25s; }
+
+/* =============================================
+   RESPONSIVE DESIGN
+   ============================================= */
+
+@media (max-width: 768px) {
+  #filters-panel {
+    padding: 15px;
+  }
+
+  .filter-label {
+    font-size: 13px;
+  }
+
+  input[type="range"] {
+    height: 6px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+  }
+
+  #reset-filters {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-control {
+    margin-bottom: 15px;
+  }
+
+  .filter-value {
+    min-width: 45px;
+    font-size: 13px;
+  }
+}
+
+/* =============================================
+   MODO OSCURO (preparado para futuro)
+   ============================================= */
+
+@media (prefers-color-scheme: dark) {
+  #filters-panel {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  }
+
+  #filters-panel h3 {
+    color: #ecf0f1;
+  }
+
+  .filter-label {
+    color: #bdc3c7;
+  }
+
+  .filter-value {
+    color: #ff8833;
+  }
+}

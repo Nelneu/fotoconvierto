@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/filters.css">
   <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -36,15 +37,67 @@
 
     <!-- Panel de controles del editor (se mostrará cuando haya imagen) -->
     <div class="editor-controls" id="editorControls" style="display: none;">
-      <div class="controls-section">
-        <h3>🎨 Editor</h3>
-        <p>Los controles de edición aparecerán aquí en las siguientes fases</p>
+
+      <!-- Panel de Filtros -->
+      <div class="controls-section" id="filters-panel">
+        <h3>🎨 Filtros</h3>
+
+        <!-- Brillo -->
+        <div class="filter-control">
+          <div class="filter-label">
+            <span class="filter-name">☀️ Brillo</span>
+            <span class="filter-value" id="brightness-value">100</span>
+          </div>
+          <input type="range" id="brightness" min="0" max="200" value="100" step="1">
+        </div>
+
+        <!-- Contraste -->
+        <div class="filter-control">
+          <div class="filter-label">
+            <span class="filter-name">🌗 Contraste</span>
+            <span class="filter-value" id="contrast-value">100</span>
+          </div>
+          <input type="range" id="contrast" min="0" max="200" value="100" step="1">
+        </div>
+
+        <!-- Saturación -->
+        <div class="filter-control">
+          <div class="filter-label">
+            <span class="filter-name">🎨 Saturación</span>
+            <span class="filter-value" id="saturation-value">100</span>
+          </div>
+          <input type="range" id="saturation" min="0" max="200" value="100" step="1">
+        </div>
+
+        <!-- Desenfoque -->
+        <div class="filter-control">
+          <div class="filter-label">
+            <span class="filter-name">🌫️ Desenfoque</span>
+            <span class="filter-value" id="blur-value">0px</span>
+          </div>
+          <input type="range" id="blur" min="0" max="10" value="0" step="0.5">
+        </div>
+
+        <!-- Escala de Grises -->
+        <div class="filter-control">
+          <div class="filter-label">
+            <span class="filter-name">⚫ Blanco y Negro</span>
+            <span class="filter-value" id="grayscale-value">0%</span>
+          </div>
+          <input type="range" id="grayscale" min="0" max="100" value="0" step="1">
+        </div>
+
+        <!-- Botón Resetear -->
+        <button id="reset-filters">↺ Resetear Filtros</button>
       </div>
+
     </div>
 
   </div>
   <!-- Scripts del editor (módulos cargados en orden) -->
   <script src="js/canvas-manager.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/ui-controls.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
