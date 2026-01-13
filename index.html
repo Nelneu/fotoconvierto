@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#ff6600">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/editor.css">
   <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -25,11 +26,25 @@
     </div>
     <div id="status-text"></div>
 
-    <div id="preview">Aquí verás tu imagen</div>
+    <!-- Canvas Container con placeholder -->
+    <div id="canvas-container">
+      <canvas id="mainCanvas"></canvas>
+      <div id="placeholder" class="placeholder-visible">📸 Sube una imagen para comenzar</div>
+    </div>
+
     <button id="clearBtn">Borrar imagen</button>
 
+    <!-- Panel de controles del editor (se mostrará cuando haya imagen) -->
+    <div class="editor-controls" id="editorControls" style="display: none;">
+      <div class="controls-section">
+        <h3>🎨 Editor</h3>
+        <p>Los controles de edición aparecerán aquí en las siguientes fases</p>
+      </div>
+    </div>
+
   </div>
-  <!-- El script se carga al final para asegurar que el DOM ya existe -->
-  <script src="script.js"></script>
+  <!-- Scripts del editor (módulos cargados en orden) -->
+  <script src="js/canvas-manager.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
