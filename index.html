@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/editor.css">
   <link rel="stylesheet" href="css/filters.css">
+  <link rel="stylesheet" href="css/export.css">
   <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -91,12 +92,65 @@
         <button id="reset-filters">↺ Resetear Filtros</button>
       </div>
 
+      <!-- Panel de Exportación -->
+      <div class="controls-section" id="export-panel">
+        <h3>💾 Descargar</h3>
+
+        <!-- Nombre del archivo -->
+        <div class="form-group">
+          <label for="filename">Nombre del archivo</label>
+          <input type="text" id="filename" class="text-input" placeholder="mi-foto-editada" value="mi-foto-editada">
+        </div>
+
+        <!-- Selector de formato -->
+        <div class="form-group">
+          <label for="format-select">Formato</label>
+          <select id="format-select" class="format-select">
+            <option value="jpeg" selected>JPEG - Comprimido (recomendado)</option>
+            <option value="png">PNG - Sin pérdida (mayor tamaño)</option>
+            <option value="webp">WebP - Moderno y eficiente</option>
+          </select>
+        </div>
+
+        <!-- Control de calidad (solo para JPEG y WebP) -->
+        <div class="form-group" id="quality-control">
+          <label for="quality-slider">
+            <span>Calidad</span>
+            <span id="quality-value" class="quality-value">90%</span>
+          </label>
+          <input type="range" id="quality-slider" min="1" max="100" value="90" step="1">
+          <div class="quality-hint">
+            <span class="hint-low">Menor tamaño</span>
+            <span class="hint-high">Mejor calidad</span>
+          </div>
+        </div>
+
+        <!-- Información de la imagen -->
+        <div class="image-info">
+          <div class="info-item">
+            <span class="info-label">Dimensiones:</span>
+            <span id="image-dimensions" class="info-value">-</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Tamaño aprox:</span>
+            <span id="file-size" class="info-value">-</span>
+          </div>
+        </div>
+
+        <!-- Botón de descarga -->
+        <button id="download-btn" class="btn-download">
+          <span class="download-icon">⬇️</span>
+          <span class="download-text">Descargar Imagen</span>
+        </button>
+      </div>
+
     </div>
 
   </div>
   <!-- Scripts del editor (módulos cargados en orden) -->
   <script src="js/canvas-manager.js"></script>
   <script src="js/filters.js"></script>
+  <script src="js/export.js"></script>
   <script src="js/ui-controls.js"></script>
   <script src="js/main.js"></script>
 </body>
