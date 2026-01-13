@@ -1,0 +1,231 @@
+/**
+ * editor.css - Estilos específicos del editor de fotos
+ *
+ * Contiene estilos para:
+ * - Canvas container
+ * - Placeholder
+ * - Controles del editor
+ * - Estados visuales
+ */
+
+/* =============================================
+   CANVAS CONTAINER
+   ============================================= */
+
+#canvas-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  min-height: 300px;
+  margin: 20px auto;
+  background: #f5f5f5;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+
+#canvas-container.has-image {
+  border: 2px solid #4CAF50;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#canvas-container:hover {
+  transform: scale(1.01);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* =============================================
+   CANVAS PRINCIPAL
+   ============================================= */
+
+#mainCanvas {
+  display: block;
+  max-width: 100%;
+  max-height: 600px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  /* El canvas se ocultará cuando no haya imagen */
+}
+
+#canvas-container:not(.has-image) #mainCanvas {
+  display: none;
+}
+
+/* =============================================
+   PLACEHOLDER
+   ============================================= */
+
+#placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  color: #999;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  user-select: none;
+}
+
+#placeholder.placeholder-visible {
+  opacity: 1;
+}
+
+/* Ocultar placeholder cuando hay imagen */
+#canvas-container.has-image #placeholder {
+  display: none;
+}
+
+/* =============================================
+   CONTROLES DEL EDITOR
+   ============================================= */
+
+.editor-controls {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease;
+}
+
+.controls-section {
+  margin-bottom: 20px;
+}
+
+.controls-section:last-child {
+  margin-bottom: 0;
+}
+
+.controls-section h3 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controls-section p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* =============================================
+   ESTADOS DE MENSAJE
+   ============================================= */
+
+#status-text {
+  text-align: center;
+  margin: 10px 0;
+  font-weight: 500;
+  font-size: 14px;
+  min-height: 20px;
+  transition: all 0.3s ease;
+}
+
+.status-info {
+  color: #2196F3;
+}
+
+.status-success {
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+.status-error {
+  color: #f44336;
+  font-weight: 600;
+}
+
+/* =============================================
+   ANIMACIONES
+   ============================================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =============================================
+   RESPONSIVE DESIGN
+   ============================================= */
+
+@media (max-width: 768px) {
+  #canvas-container {
+    max-width: 100%;
+    min-height: 250px;
+    margin: 15px auto;
+  }
+
+  #placeholder {
+    font-size: 18px;
+    padding: 0 20px;
+  }
+
+  .editor-controls {
+    margin: 15px auto;
+    padding: 15px;
+  }
+
+  .controls-section h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  #canvas-container {
+    min-height: 200px;
+    border-radius: 8px;
+  }
+
+  #placeholder {
+    font-size: 16px;
+  }
+
+  #mainCanvas {
+    max-height: 400px;
+  }
+}
+
+/* =============================================
+   UTILIDADES
+   ============================================= */
+
+.hidden {
+  display: none !important;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
