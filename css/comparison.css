@@ -1,0 +1,280 @@
+/**
+ * comparison.css - Estilos para el panel de comparación antes/después
+ */
+
+/* Panel de comparación */
+#comparison-panel {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+#comparison-panel h3 {
+  color: white;
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botón de toggle de comparación */
+#toggle-comparison {
+  width: 100%;
+  padding: 12px 20px;
+  background: white;
+  color: #667eea;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#toggle-comparison:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #f8f9ff;
+}
+
+#toggle-comparison:active {
+  transform: translateY(0);
+}
+
+#toggle-comparison.active {
+  background: #ff6600;
+  color: white;
+}
+
+#toggle-comparison:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Control de vista dividida */
+#split-view-control {
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+}
+
+#split-view-control.hidden {
+  display: none;
+}
+
+/* Checkbox para activar split view */
+.split-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.split-toggle input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #ff6600;
+}
+
+/* Slider de división */
+#split-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(to right,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 102, 0, 0.5) 50%,
+    rgba(255, 102, 0, 0.7) 100%
+  );
+  outline: none;
+  margin: 10px 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+/* Estilo del thumb del slider - Chrome/Safari */
+#split-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border: 3px solid #ff6600;
+  border-radius: 50%;
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+#split-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+#split-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.1);
+}
+
+/* Estilo del thumb del slider - Firefox */
+#split-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border: 3px solid #ff6600;
+  border-radius: 50%;
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+#split-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+#split-slider::-moz-range-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.1);
+}
+
+/* Etiquetas de división */
+.split-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.split-labels span {
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+.split-labels span:first-child {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.split-labels span:last-child {
+  background: rgba(255, 102, 0, 0.3);
+  color: #ff6600;
+  font-weight: 600;
+}
+
+/* Indicador visual cuando está en modo comparación */
+#canvas-container.comparing::before {
+  content: 'ORIGINAL';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(102, 126, 234, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+#canvas-container.split-view::before {
+  content: 'COMPARACIÓN';
+  background: linear-gradient(135deg, #667eea 0%, #ff6600 100%);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ajuste de posición del canvas para indicadores */
+#canvas-container {
+  position: relative;
+}
+
+/* Responsive - Pantallas pequeñas */
+@media (max-width: 768px) {
+  #comparison-panel {
+    padding: 15px;
+  }
+
+  #toggle-comparison {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+  }
+
+  #split-view-control {
+    padding: 12px;
+  }
+
+  #canvas-container.comparing::before,
+  #canvas-container.split-view::before {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    top: 10px;
+    left: 10px;
+  }
+
+  .split-labels {
+    font-size: 0.8rem;
+  }
+}
+
+/* Animaciones suaves */
+#split-view-control {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+/* Posición del valor del slider */
+#split-slider-value {
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  font-weight: 600;
+}

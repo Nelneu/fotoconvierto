@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/filters.css">
   <link rel="stylesheet" href="css/transforms.css">
   <link rel="stylesheet" href="css/export.css">
+  <link rel="stylesheet" href="css/comparison.css">
   <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -176,6 +177,36 @@
         </button>
       </div>
 
+      <!-- Panel de Comparación -->
+      <div class="controls-section" id="comparison-panel">
+        <h3>⚖️ Comparar</h3>
+
+        <!-- Botón de toggle comparación -->
+        <button id="toggle-comparison" class="btn-comparison">
+          <span class="btn-icon">👁️</span>
+          <span class="btn-text">Ver Original</span>
+        </button>
+
+        <!-- Control de vista dividida -->
+        <div id="split-view-control" class="hidden">
+          <!-- Checkbox para activar split view -->
+          <label class="split-toggle">
+            <input type="checkbox" id="split-mode-toggle">
+            <span>Vista dividida (antes/después)</span>
+          </label>
+
+          <!-- Slider divisor -->
+          <div id="split-slider-container" style="display: none;">
+            <div id="split-slider-value">50%</div>
+            <input type="range" id="split-slider" min="0" max="100" value="50" step="1">
+            <div class="split-labels">
+              <span>Original</span>
+              <span>Editada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -184,6 +215,7 @@
   <script src="js/filters.js"></script>
   <script src="js/transforms.js"></script>
   <script src="js/export.js"></script>
+  <script src="js/comparison.js"></script>
   <script src="js/ui-controls.js"></script>
   <script src="js/main.js"></script>
 </body>
