@@ -7,6 +7,7 @@
 // Instancias globales
 let canvasManager;
 let imageFilters;
+let imageTransforms;
 let uiControls;
 
 // Elementos del DOM
@@ -46,6 +47,14 @@ function initializeApp() {
     console.log('✅ ImageFilters inicializado correctamente');
   } catch (error) {
     console.error('❌ Error al inicializar ImageFilters:', error);
+  }
+
+  // Inicializar ImageTransforms
+  try {
+    imageTransforms = new ImageTransforms(canvasManager, imageFilters);
+    console.log('✅ ImageTransforms inicializado correctamente');
+  } catch (error) {
+    console.error('❌ Error al inicializar ImageTransforms:', error);
   }
 
   // Inicializar UIControls (se inicializa después del DOM completo)
@@ -89,6 +98,55 @@ function setupEventListeners() {
 
   // Listener para botón de limpiar
   clearBtn.addEventListener('click', handleClearImage);
+
+  // Listeners para botones de transformación
+  setupTransformListeners();
+}
+
+/**
+ * Configura los event listeners de transformaciones
+ */
+function setupTransformListeners() {
+  const rotateLeftBtn = document.getElementById('rotate-left');
+  const rotateRightBtn = document.getElementById('rotate-right');
+  const flipHorizontalBtn = document.getElementById('flip-horizontal');
+  const flipVerticalBtn = document.getElementById('flip-vertical');
+
+  if (rotateLeftBtn) {
+    rotateLeftBtn.addEventListener('click', () => {
+      if (imageTransforms) {
+        imageTransforms.rotate90CCW();
+        imageTransforms.saveToLocalStorage();
+      }
+    });
+  }
+
+  if (rotateRightBtn) {
+    rotateRightBtn.addEventListener('click', () => {
+      if (imageTransforms) {
+        imageTransforms.rotate90CW();
+        imageTransforms.saveToLocalStorage();
+      }
+    });
+  }
+
+  if (flipHorizontalBtn) {
+    flipHorizontalBtn.addEventListener('click', () => {
+      if (imageTransforms) {
+        imageTransforms.flipHorizontal();
+        imageTransforms.saveToLocalStorage();
+      }
+    });
+  }
+
+  if (flipVerticalBtn) {
+    flipVerticalBtn.addEventListener('click', () => {
+      if (imageTransforms) {
+        imageTransforms.flipVertical();
+        imageTransforms.saveToLocalStorage();
+      }
+    });
+  }
 }
 
 /**
@@ -176,6 +234,11 @@ function handleClearImage() {
   // Resetear filtros
   if (imageFilters) {
     imageFilters.resetFilters();
+  }
+
+  // Resetear transformaciones
+  if (imageTransforms) {
+    imageTransforms.resetTransforms();
   }
 
   // Deshabilitar controles
