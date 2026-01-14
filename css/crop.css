@@ -1,0 +1,343 @@
+/**
+ * crop.css - Estilos para la herramienta de recorte
+ */
+
+/* Panel de recorte */
+#crop-panel {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.2);
+}
+
+#crop-panel h3 {
+  color: white;
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Selector de proporción */
+.crop-ratio-group {
+  margin-bottom: 15px;
+}
+
+.crop-ratio-group label {
+  display: block;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+#crop-ratio {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#crop-ratio:hover {
+  background: white;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+#crop-ratio:focus {
+  outline: none;
+  border-color: #ff6600;
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
+}
+
+/* Botones de recorte */
+.crop-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#start-crop {
+  width: 100%;
+  padding: 12px 20px;
+  background: white;
+  color: #f5576c;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#start-crop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #fff5f8;
+}
+
+#start-crop:active {
+  transform: translateY(0);
+}
+
+#start-crop:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Botones de aplicar y cancelar (visibles durante recorte) */
+.crop-action-buttons {
+  display: none;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.crop-action-buttons.active {
+  display: flex;
+}
+
+#apply-crop,
+#cancel-crop {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+#apply-crop {
+  background: #4caf50;
+  color: white;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+#apply-crop:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+#cancel-crop {
+  background: rgba(255, 255, 255, 0.9);
+  color: #f5576c;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#cancel-crop:hover {
+  background: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#apply-crop:active,
+#cancel-crop:active {
+  transform: translateY(0);
+}
+
+/* Indicador de modo recorte activo */
+#canvas-container.crop-active {
+  cursor: crosshair;
+}
+
+#canvas-container.crop-active::before {
+  content: '✂️ RECORTANDO - Arrastra para seleccionar área';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+
+/* Instrucciones de uso */
+.crop-instructions {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 15px;
+  backdrop-filter: blur(10px);
+  display: none;
+}
+
+.crop-instructions.active {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+.crop-instructions p {
+  color: white;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+}
+
+.crop-instructions p:last-child {
+  margin-bottom: 0;
+}
+
+.crop-instructions strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Iconos en botones */
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+/* Estado deshabilitado */
+#crop-panel.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Proporciones populares con iconos */
+.ratio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Responsive - Pantallas pequeñas */
+@media (max-width: 768px) {
+  #crop-panel {
+    padding: 15px;
+  }
+
+  #start-crop {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+  }
+
+  #apply-crop,
+  #cancel-crop {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+
+  #canvas-container.crop-active::before {
+    font-size: 0.75rem;
+    padding: 8px 16px;
+    top: 10px;
+  }
+
+  .crop-instructions {
+    padding: 10px;
+  }
+
+  .crop-instructions p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+/* Hint de proporción seleccionada */
+.crop-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: white;
+  font-size: 0.85rem;
+}
+
+.crop-hint-label {
+  font-weight: 600;
+}
+
+.crop-hint-value {
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Ejemplos de uso para proporciones */
+.ratio-examples {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ratio-examples.active {
+  display: block;
+}
+
+.ratio-examples ul {
+  margin: 5px 0 0 0;
+  padding-left: 20px;
+  list-style-type: none;
+}
+
+.ratio-examples li {
+  margin-bottom: 4px;
+}
+
+.ratio-examples li::before {
+  content: '•';
+  color: #ff6600;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}

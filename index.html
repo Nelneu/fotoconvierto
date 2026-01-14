@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/transforms.css">
   <link rel="stylesheet" href="css/export.css">
   <link rel="stylesheet" href="css/comparison.css">
+  <link rel="stylesheet" href="css/crop.css">
   <!-- Fuente moderna -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -207,6 +208,52 @@
         </div>
       </div>
 
+      <!-- Panel de Recorte -->
+      <div class="controls-section" id="crop-panel">
+        <h3>✂️ Recortar</h3>
+
+        <!-- Selector de proporción -->
+        <div class="crop-ratio-group">
+          <label for="crop-ratio">Proporción</label>
+          <select id="crop-ratio">
+            <option value="free" selected>Libre</option>
+            <option value="1">Cuadrado (1:1)</option>
+            <option value="1.333">Paisaje (4:3)</option>
+            <option value="1.777">Panorámico (16:9)</option>
+            <option value="0.5625">Vertical (9:16 - Stories)</option>
+            <option value="0.8">Retrato (4:5 - Instagram)</option>
+          </select>
+        </div>
+
+        <!-- Botones de recorte -->
+        <div class="crop-buttons">
+          <button id="start-crop">
+            <span class="btn-icon">✂️</span>
+            <span>Iniciar Recorte</span>
+          </button>
+
+          <!-- Botones de acción (visibles durante recorte) -->
+          <div class="crop-action-buttons" id="crop-actions">
+            <button id="apply-crop">
+              <span>✓</span>
+              <span>Aplicar</span>
+            </button>
+            <button id="cancel-crop">
+              <span>✗</span>
+              <span>Cancelar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Instrucciones de uso -->
+        <div class="crop-instructions" id="crop-instructions">
+          <p><strong>Instrucciones:</strong></p>
+          <p>• Arrastra para crear el área de recorte</p>
+          <p>• Mueve el área haciendo clic dentro</p>
+          <p>• Redimensiona desde las esquinas</p>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -216,6 +263,7 @@
   <script src="js/transforms.js"></script>
   <script src="js/export.js"></script>
   <script src="js/comparison.js"></script>
+  <script src="js/crop.js"></script>
   <script src="js/ui-controls.js"></script>
   <script src="js/main.js"></script>
 </body>
