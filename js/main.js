@@ -9,6 +9,7 @@ let canvasManager;
 let imageFilters;
 let imageTransforms;
 let imageExporter;
+let imageComparison;
 let uiControls;
 
 // Elementos del DOM
@@ -66,6 +67,14 @@ function initializeApp() {
     console.error('❌ Error al inicializar ImageExporter:', error);
   }
 
+  // Inicializar ImageComparison
+  try {
+    imageComparison = new ImageComparison(canvasManager, imageFilters);
+    console.log('✅ ImageComparison inicializado correctamente');
+  } catch (error) {
+    console.error('❌ Error al inicializar ImageComparison:', error);
+  }
+
   // Inicializar UIControls (se inicializa después del DOM completo)
   try {
     uiControls = new UIControls(imageFilters);
@@ -113,6 +122,9 @@ function setupEventListeners() {
 
   // Listeners para exportación
   setupExportListeners();
+
+  // Listeners para comparación
+  setupComparisonListeners();
 }
 
 /**
@@ -293,6 +305,105 @@ function handleDownload() {
 }
 
 /**
+ * Configura los event listeners de comparación
+ */
+function setupComparisonListeners() {
+  const toggleBtn = document.getElementById('toggle-comparison');
+  const splitModeToggle = document.getElementById('split-mode-toggle');
+  const splitSlider = document.getElementById('split-slider');
+  const splitSliderValue = document.getElementById('split-slider-value');
+  const splitSliderContainer = document.getElementById('split-slider-container');
+  const splitViewControl = document.getElementById('split-view-control');
+
+  // Botón de toggle comparación
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      if (!imageComparison || !canvasManager.hasImage()) {
+        console.warn('No hay imagen para comparar');
+        return;
+      }
+
+      const isComparing = imageComparison.toggleComparison();
+
+      // Actualizar UI del botón
+      if (isComparing) {
+        toggleBtn.classList.add('active');
+        toggleBtn.querySelector('.btn-text').textContent = 'Ver Editada';
+        canvasContainer.classList.add('comparing');
+
+        // Mostrar controles de split view
+        if (splitViewControl) {
+          splitViewControl.classList.remove('hidden');
+        }
+      } else {
+        toggleBtn.classList.remove('active');
+        toggleBtn.querySelector('.btn-text').textContent = 'Ver Original';
+        canvasContainer.classList.remove('comparing');
+        canvasContainer.classList.remove('split-view');
+
+        // Ocultar controles de split view
+        if (splitViewControl) {
+          splitViewControl.classList.add('hidden');
+        }
+
+        // Resetear split mode
+        if (splitModeToggle) {
+          splitModeToggle.checked = false;
+        }
+        if (splitSliderContainer) {
+          splitSliderContainer.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // Checkbox de modo split
+  if (splitModeToggle) {
+    splitModeToggle.addEventListener('change', (e) => {
+      if (!imageComparison || !canvasManager.hasImage()) return;
+
+      if (e.target.checked) {
+        // Activar modo split
+        imageComparison.setSplitMode(0.5);
+        canvasContainer.classList.remove('comparing');
+        canvasContainer.classList.add('split-view');
+
+        // Mostrar slider
+        if (splitSliderContainer) {
+          splitSliderContainer.style.display = 'block';
+        }
+      } else {
+        // Desactivar modo split, volver a toggle
+        imageComparison.exitSplitMode();
+        canvasContainer.classList.add('comparing');
+        canvasContainer.classList.remove('split-view');
+
+        // Ocultar slider
+        if (splitSliderContainer) {
+          splitSliderContainer.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // Slider de división
+  if (splitSlider && splitSliderValue) {
+    splitSlider.addEventListener('input', (e) => {
+      const value = parseInt(e.target.value);
+      const position = value / 100;
+
+      // Actualizar valor mostrado
+      splitSliderValue.textContent = `${value}%`;
+
+      // Actualizar vista dividida
+      if (imageComparison) {
+        imageComparison.updateSplitPosition(position);
+      }
+    });
+  }
+}
+
+/**
  * Maneja la selección de archivo
  * @param {Event} event - Evento de cambio
  */
@@ -387,6 +498,11 @@ function handleClearImage() {
     imageTransforms.resetTransforms();
   }
 
+  // Resetear comparación
+  if (imageComparison) {
+    imageComparison.reset();
+  }
+
   // Deshabilitar controles
   if (uiControls) {
     uiControls.setEnabled(false);
@@ -398,6 +514,17 @@ function handleClearImage() {
   hideStatus();
   showPlaceholder();
   hideEditorControls();
+
+  // Remover clases de comparación del canvas
+  canvasContainer.classList.remove('comparing');
+  canvasContainer.classList.remove('split-view');
+
+  // Resetear botón de comparación
+  const toggleBtn = document.getElementById('toggle-comparison');
+  if (toggleBtn) {
+    toggleBtn.classList.remove('active');
+    toggleBtn.querySelector('.btn-text').textContent = 'Ver Original';
+  }
 
   console.log('✅ Imagen limpiada correctamente');
 }
