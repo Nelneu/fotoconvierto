@@ -8,6 +8,7 @@
 let canvasManager;
 let imageFilters;
 let imageTransforms;
+let imageExporter;
 let uiControls;
 
 // Elementos del DOM
@@ -57,6 +58,14 @@ function initializeApp() {
     console.error('❌ Error al inicializar ImageTransforms:', error);
   }
 
+  // Inicializar ImageExporter
+  try {
+    imageExporter = new ImageExporter(canvasManager);
+    console.log('✅ ImageExporter inicializado correctamente');
+  } catch (error) {
+    console.error('❌ Error al inicializar ImageExporter:', error);
+  }
+
   // Inicializar UIControls (se inicializa después del DOM completo)
   try {
     uiControls = new UIControls(imageFilters);
@@ -101,6 +110,9 @@ function setupEventListeners() {
 
   // Listeners para botones de transformación
   setupTransformListeners();
+
+  // Listeners para exportación
+  setupExportListeners();
 }
 
 /**
@@ -147,6 +159,137 @@ function setupTransformListeners() {
       }
     });
   }
+}
+
+/**
+ * Configura los event listeners de exportación
+ */
+function setupExportListeners() {
+  const downloadBtn = document.getElementById('download-btn');
+  const formatSelect = document.getElementById('format-select');
+  const qualitySlider = document.getElementById('quality-slider');
+  const qualityValue = document.getElementById('quality-value');
+  const filenameInput = document.getElementById('filename');
+  const qualityControl = document.getElementById('quality-control');
+
+  // Botón de descarga
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', handleDownload);
+  }
+
+  // Cambio de formato
+  if (formatSelect) {
+    formatSelect.addEventListener('change', (e) => {
+      const format = e.target.value;
+      updateQualityControlVisibility(format);
+      updateFileSizeEstimate();
+    });
+  }
+
+  // Cambio de calidad
+  if (qualitySlider && qualityValue) {
+    qualitySlider.addEventListener('input', (e) => {
+      qualityValue.textContent = `${e.target.value}%`;
+    });
+
+    qualitySlider.addEventListener('change', () => {
+      updateFileSizeEstimate();
+    });
+  }
+
+  // Cambio de nombre de archivo
+  if (filenameInput) {
+    filenameInput.addEventListener('input', (e) => {
+      // Sanear el nombre en tiempo real
+      e.target.value = e.target.value.replace(/[<>:"/\\|?*]/g, '');
+    });
+  }
+}
+
+/**
+ * Actualiza la visibilidad del control de calidad según el formato
+ * @param {string} format - Formato seleccionado
+ */
+function updateQualityControlVisibility(format) {
+  const qualityControl = document.getElementById('quality-control');
+  if (!qualityControl || !imageExporter) return;
+
+  const supportsQuality = imageExporter.formatSupportsQuality(format);
+
+  if (supportsQuality) {
+    qualityControl.style.display = 'block';
+  } else {
+    qualityControl.style.display = 'none';
+  }
+}
+
+/**
+ * Actualiza la estimación del tamaño del archivo
+ */
+async function updateFileSizeEstimate() {
+  const fileSizeElement = document.getElementById('file-size');
+  if (!fileSizeElement || !imageExporter) return;
+
+  const formatSelect = document.getElementById('format-select');
+  const qualitySlider = document.getElementById('quality-slider');
+
+  if (!formatSelect || !qualitySlider) return;
+
+  const format = formatSelect.value;
+  const quality = parseFloat(qualitySlider.value) / 100;
+
+  try {
+    const size = await imageExporter.getApproximateSize(format, quality);
+    fileSizeElement.textContent = imageExporter.formatFileSize(size);
+  } catch (error) {
+    fileSizeElement.textContent = '-';
+  }
+}
+
+/**
+ * Actualiza la información de la imagen
+ */
+function updateImageInfo() {
+  const dimensionsElement = document.getElementById('image-dimensions');
+
+  if (dimensionsElement && imageExporter) {
+    const dims = imageExporter.getImageDimensions();
+    dimensionsElement.textContent = `${dims.width} × ${dims.height}px`;
+  }
+
+  updateFileSizeEstimate();
+}
+
+/**
+ * Maneja la descarga de la imagen
+ */
+function handleDownload() {
+  if (!imageExporter || !canvasManager.hasImage()) {
+    console.error('No hay imagen para descargar');
+    return;
+  }
+
+  const filenameInput = document.getElementById('filename');
+  const formatSelect = document.getElementById('format-select');
+  const qualitySlider = document.getElementById('quality-slider');
+  const downloadBtn = document.getElementById('download-btn');
+
+  const filename = filenameInput?.value || imageExporter.generateDefaultFilename();
+  const format = formatSelect?.value || 'jpeg';
+  const quality = qualitySlider ? parseFloat(qualitySlider.value) / 100 : 0.9;
+
+  // Feedback visual
+  if (downloadBtn) {
+    downloadBtn.classList.add('success');
+    setTimeout(() => {
+      downloadBtn.classList.remove('success');
+    }, 600);
+  }
+
+  // Descargar
+  imageExporter.downloadImage(filename, format, quality);
+
+  console.log(`📥 Descargando: ${filename}.${format} (calidad: ${Math.round(quality * 100)}%)`);
 }
 
 /**
@@ -203,6 +346,9 @@ function handleFileSelect(event) {
       if (uiControls) {
         uiControls.setEnabled(true);
       }
+
+      // Actualizar información de la imagen
+      updateImageInfo();
 
       // Ocultar progreso después de un delay
       setTimeout(() => {
@@ -276,6 +422,9 @@ function loadLastImage() {
       if (uiControls) {
         uiControls.setEnabled(true);
       }
+
+      // Actualizar información de la imagen
+      updateImageInfo();
     })
     .catch((error) => {
       // No hay imagen guardada o error al cargar (normal en primera visita)
