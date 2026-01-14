@@ -10,6 +10,7 @@ let imageFilters;
 let imageTransforms;
 let imageExporter;
 let imageComparison;
+let cropTool;
 let uiControls;
 
 // Elementos del DOM
@@ -75,6 +76,14 @@ function initializeApp() {
     console.error('❌ Error al inicializar ImageComparison:', error);
   }
 
+  // Inicializar CropTool
+  try {
+    cropTool = new CropTool(canvasManager, imageFilters);
+    console.log('✅ CropTool inicializado correctamente');
+  } catch (error) {
+    console.error('❌ Error al inicializar CropTool:', error);
+  }
+
   // Inicializar UIControls (se inicializa después del DOM completo)
   try {
     uiControls = new UIControls(imageFilters);
@@ -125,6 +134,9 @@ function setupEventListeners() {
 
   // Listeners para comparación
   setupComparisonListeners();
+
+  // Listeners para recorte
+  setupCropListeners();
 }
 
 /**
@@ -404,6 +416,133 @@ function setupComparisonListeners() {
 }
 
 /**
+ * Configura los event listeners de recorte
+ */
+function setupCropListeners() {
+  const startCropBtn = document.getElementById('start-crop');
+  const applyCropBtn = document.getElementById('apply-crop');
+  const cancelCropBtn = document.getElementById('cancel-crop');
+  const cropRatioSelect = document.getElementById('crop-ratio');
+  const cropActions = document.getElementById('crop-actions');
+  const cropInstructions = document.getElementById('crop-instructions');
+
+  // Botón para iniciar recorte
+  if (startCropBtn) {
+    startCropBtn.addEventListener('click', () => {
+      if (!cropTool || !canvasManager.hasImage()) {
+        console.warn('No hay imagen para recortar');
+        return;
+      }
+
+      // Iniciar modo recorte
+      const started = cropTool.startCrop();
+
+      if (started) {
+        // Mostrar botones de acción y ocultar botón de iniciar
+        startCropBtn.style.display = 'none';
+        if (cropActions) {
+          cropActions.classList.add('active');
+        }
+
+        // Mostrar instrucciones
+        if (cropInstructions) {
+          cropInstructions.classList.add('active');
+        }
+
+        // Agregar clase al canvas container
+        canvasContainer.classList.add('crop-active');
+
+        // Deshabilitar comparación mientras se recorta
+        if (imageComparison && imageComparison.isComparing) {
+          imageComparison.toggleComparison();
+        }
+
+        console.log('✂️ Modo recorte iniciado');
+      }
+    });
+  }
+
+  // Botón para aplicar recorte
+  if (applyCropBtn) {
+    applyCropBtn.addEventListener('click', () => {
+      if (!cropTool) return;
+
+      // Aplicar el recorte
+      const applied = cropTool.applyCrop();
+
+      if (applied) {
+        // Restaurar UI
+        exitCropMode();
+
+        // Actualizar información de la imagen
+        updateImageInfo();
+
+        // Guardar en localStorage
+        canvasManager.saveToLocalStorage('ultimaImagen');
+
+        console.log('✂️ Recorte aplicado');
+      }
+    });
+  }
+
+  // Botón para cancelar recorte
+  if (cancelCropBtn) {
+    cancelCropBtn.addEventListener('click', () => {
+      if (!cropTool) return;
+
+      // Cancelar recorte
+      cropTool.cancelCrop();
+
+      // Restaurar UI
+      exitCropMode();
+
+      console.log('✂️ Recorte cancelado');
+    });
+  }
+
+  // Selector de proporción
+  if (cropRatioSelect) {
+    cropRatioSelect.addEventListener('change', (e) => {
+      if (!cropTool) return;
+
+      const value = e.target.value;
+      let ratio = null;
+
+      if (value !== 'free') {
+        ratio = parseFloat(value);
+      }
+
+      cropTool.setAspectRatio(ratio);
+    });
+  }
+}
+
+/**
+ * Sale del modo de recorte y restaura la UI
+ */
+function exitCropMode() {
+  const startCropBtn = document.getElementById('start-crop');
+  const cropActions = document.getElementById('crop-actions');
+  const cropInstructions = document.getElementById('crop-instructions');
+
+  // Mostrar botón de iniciar y ocultar botones de acción
+  if (startCropBtn) {
+    startCropBtn.style.display = 'flex';
+  }
+  if (cropActions) {
+    cropActions.classList.remove('active');
+  }
+
+  // Ocultar instrucciones
+  if (cropInstructions) {
+    cropInstructions.classList.remove('active');
+  }
+
+  // Remover clase del canvas container
+  canvasContainer.classList.remove('crop-active');
+}
+
+/**
  * Maneja la selección de archivo
  * @param {Event} event - Evento de cambio
  */
@@ -503,6 +642,11 @@ function handleClearImage() {
     imageComparison.reset();
   }
 
+  // Resetear recorte
+  if (cropTool) {
+    cropTool.reset();
+  }
+
   // Deshabilitar controles
   if (uiControls) {
     uiControls.setEnabled(false);
@@ -515,9 +659,10 @@ function handleClearImage() {
   showPlaceholder();
   hideEditorControls();
 
-  // Remover clases de comparación del canvas
+  // Remover clases del canvas
   canvasContainer.classList.remove('comparing');
   canvasContainer.classList.remove('split-view');
+  canvasContainer.classList.remove('crop-active');
 
   // Resetear botón de comparación
   const toggleBtn = document.getElementById('toggle-comparison');
@@ -525,6 +670,9 @@ function handleClearImage() {
     toggleBtn.classList.remove('active');
     toggleBtn.querySelector('.btn-text').textContent = 'Ver Original';
   }
+
+  // Resetear UI del recorte
+  exitCropMode();
 
   console.log('✅ Imagen limpiada correctamente');
 }
