@@ -31,16 +31,20 @@
     </div>
     <div id="status-text"></div>
 
-    <!-- Canvas Container con placeholder -->
-    <div id="canvas-container">
-      <canvas id="mainCanvas"></canvas>
-      <div id="placeholder" class="placeholder-visible">📸 Sube una imagen para comenzar</div>
-    </div>
+    <div class="workspace">
+      <div class="canvas-panel">
+        <!-- Canvas Container con placeholder -->
+        <div id="canvas-container">
+          <canvas id="mainCanvas"></canvas>
+          <div id="placeholder" class="placeholder-visible">📸 Sube una imagen para comenzar</div>
+        </div>
 
-    <button id="clearBtn">Borrar imagen</button>
+        <button id="clearBtn">Borrar imagen</button>
+      </div>
 
-    <!-- Panel de controles del editor (se mostrará cuando haya imagen) -->
-    <div class="editor-controls" id="editorControls" style="display: none;">
+      <!-- Panel de controles del editor (se mostrará cuando haya imagen) -->
+      <div class="editor-controls" id="editorControls" style="display: none;">
+        <div class="editor-controls-grid">
 
       <!-- Panel de Filtros -->
       <div class="controls-section" id="filters-panel">
@@ -254,8 +258,9 @@
         </div>
       </div>
 
+        </div>
+      </div>
     </div>
-
   </div>
   <!-- Scripts del editor (módulos cargados en orden) -->
   <script src="js/canvas-manager.js"></script>

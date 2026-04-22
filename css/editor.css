@@ -17,7 +17,7 @@
   width: 100%;
   max-width: 800px;
   min-height: 300px;
-  margin: 20px auto;
+  margin: 0 auto 20px auto;
   background: #f5f5f5;
   border: 2px dashed #ccc;
   border-radius: 12px;
@@ -89,14 +89,22 @@
    ============================================= */
 
 .editor-controls {
+  flex: 1 1 500px;
   width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
   padding: 20px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.4s ease;
+  overflow-y: auto;
+  max-height: calc(95vh - 100px);
+}
+
+.editor-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  align-items: start;
 }
 
 .controls-section {
