@@ -22,6 +22,10 @@ let statusText;
 let placeholder;
 let canvasContainer;
 let editorControls;
+let quickUploadBtn;
+let quickResetFiltersBtn;
+let quickCompareBtn;
+let quickDownloadBtn;
 
 /**
  * Inicialización cuando el DOM está listo
@@ -114,6 +118,10 @@ function getDOMReferences() {
   placeholder = document.getElementById('placeholder');
   canvasContainer = document.getElementById('canvas-container');
   editorControls = document.getElementById('editorControls');
+  quickUploadBtn = document.getElementById('quick-upload');
+  quickResetFiltersBtn = document.getElementById('quick-reset-filters');
+  quickCompareBtn = document.getElementById('quick-compare');
+  quickDownloadBtn = document.getElementById('quick-download');
 }
 
 /**
@@ -137,6 +145,39 @@ function setupEventListeners() {
 
   // Listeners para recorte
   setupCropListeners();
+
+  // Listeners de acciones rápidas
+  setupQuickActionsListeners();
+}
+
+/**
+ * Configura la barra de acciones rápidas
+ */
+function setupQuickActionsListeners() {
+  if (quickUploadBtn) {
+    quickUploadBtn.addEventListener('click', () => {
+      fileInput?.click();
+    });
+  }
+
+  if (quickResetFiltersBtn) {
+    quickResetFiltersBtn.addEventListener('click', () => {
+      if (!canvasManager?.hasImage() || !uiControls) return;
+      uiControls.resetAllFilters();
+    });
+  }
+
+  if (quickCompareBtn) {
+    quickCompareBtn.addEventListener('click', () => {
+      const toggleComparisonBtn = document.getElementById('toggle-comparison');
+      if (!toggleComparisonBtn) return;
+      toggleComparisonBtn.click();
+    });
+  }
+
+  if (quickDownloadBtn) {
+    quickDownloadBtn.addEventListener('click', handleDownload);
+  }
 }
 
 /**
@@ -342,6 +383,7 @@ function setupComparisonListeners() {
         toggleBtn.classList.add('active');
         toggleBtn.querySelector('.btn-text').textContent = 'Ver Editada';
         canvasContainer.classList.add('comparing');
+        quickCompareBtn?.classList.add('active');
 
         // Mostrar controles de split view
         if (splitViewControl) {
@@ -352,6 +394,7 @@ function setupComparisonListeners() {
         toggleBtn.querySelector('.btn-text').textContent = 'Ver Original';
         canvasContainer.classList.remove('comparing');
         canvasContainer.classList.remove('split-view');
+        quickCompareBtn?.classList.remove('active');
 
         // Ocultar controles de split view
         if (splitViewControl) {
@@ -670,6 +713,7 @@ function handleClearImage() {
     toggleBtn.classList.remove('active');
     toggleBtn.querySelector('.btn-text').textContent = 'Ver Original';
   }
+  quickCompareBtn?.classList.remove('active');
 
   // Resetear UI del recorte
   exitCropMode();

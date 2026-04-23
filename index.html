@@ -32,6 +32,29 @@
     <div id="status-text"></div>
 
     <div class="workspace">
+      <div class="quick-actions-bar" id="quickActionsBar" aria-label="Acciones rápidas del editor">
+        <button id="quick-upload" class="quick-action-btn" type="button" title="Subir o reemplazar imagen">
+          <span class="quick-action-icon">🖼️</span>
+          <span class="quick-action-label quick-action-label-desktop">Subir/Reemplazar imagen</span>
+          <span class="quick-action-label quick-action-label-mobile">Subir</span>
+        </button>
+        <button id="quick-reset-filters" class="quick-action-btn" type="button" title="Resetear todos los filtros">
+          <span class="quick-action-icon">↺</span>
+          <span class="quick-action-label quick-action-label-desktop">Reset filtros</span>
+          <span class="quick-action-label quick-action-label-mobile">Reset</span>
+        </button>
+        <button id="quick-compare" class="quick-action-btn" type="button" title="Comparar imagen original y editada">
+          <span class="quick-action-icon">👁️</span>
+          <span class="quick-action-label quick-action-label-desktop">Comparar original</span>
+          <span class="quick-action-label quick-action-label-mobile">Comparar</span>
+        </button>
+        <button id="quick-download" class="quick-action-btn quick-action-btn-primary" type="button" title="Descargar imagen editada">
+          <span class="quick-action-icon">⬇️</span>
+          <span class="quick-action-label quick-action-label-desktop">Descargar</span>
+          <span class="quick-action-label quick-action-label-mobile">Guardar</span>
+        </button>
+      </div>
+
       <div class="canvas-panel">
         <!-- Canvas Container con placeholder -->
         <div id="canvas-container">
