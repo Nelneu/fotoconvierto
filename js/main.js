@@ -26,6 +26,10 @@ let quickUploadBtn;
 let quickResetFiltersBtn;
 let quickCompareBtn;
 let quickDownloadBtn;
+let editorSectionTabs;
+let editorSectionPanels;
+let editorSectionAccordionTriggers;
+let activeEditorSectionId = 'filters-panel';
 
 /**
  * Inicialización cuando el DOM está listo
@@ -122,6 +126,9 @@ function getDOMReferences() {
   quickResetFiltersBtn = document.getElementById('quick-reset-filters');
   quickCompareBtn = document.getElementById('quick-compare');
   quickDownloadBtn = document.getElementById('quick-download');
+  editorSectionTabs = document.querySelectorAll('.editor-section-tab');
+  editorSectionPanels = document.querySelectorAll('.section-panel');
+  editorSectionAccordionTriggers = document.querySelectorAll('.section-accordion-trigger');
 }
 
 /**
@@ -148,6 +155,58 @@ function setupEventListeners() {
 
   // Listeners de acciones rápidas
   setupQuickActionsListeners();
+
+  // Listeners de navegación entre secciones (tabs/accordion)
+  setupEditorSectionNavigation();
+}
+
+/**
+ * Configura navegación de secciones con tabs (desktop) y acordeón (mobile)
+ */
+function setupEditorSectionNavigation() {
+  if (!editorSectionPanels?.length) return;
+
+  editorSectionTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.dataset.target;
+      setActiveEditorSection(targetId);
+    });
+  });
+
+  editorSectionAccordionTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const targetId = trigger.dataset.target;
+      setActiveEditorSection(targetId);
+    });
+  });
+
+  // Estado inicial: una sola sección abierta por defecto
+  setActiveEditorSection(activeEditorSectionId);
+}
+
+/**
+ * Activa una sección del editor y desactiva el resto
+ * @param {string|null} sectionId - ID de la sección a activar
+ */
+function setActiveEditorSection(sectionId) {
+  activeEditorSectionId = sectionId;
+
+  editorSectionPanels.forEach((panel) => {
+    const isActive = panel.id === sectionId;
+    panel.classList.toggle('active', isActive);
+  });
+
+  editorSectionTabs.forEach((tab) => {
+    const isActive = tab.dataset.target === sectionId;
+    tab.classList.toggle('active', isActive);
+    tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+
+  editorSectionAccordionTriggers.forEach((trigger) => {
+    const isActive = trigger.dataset.target === sectionId;
+    trigger.classList.toggle('active', isActive);
+    trigger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+  });
 }
 
 /**

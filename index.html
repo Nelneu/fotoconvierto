@@ -67,11 +67,19 @@
 
       <!-- Panel de controles del editor (se mostrará cuando haya imagen) -->
       <div class="editor-controls" id="editorControls" style="display: none;">
-        <div class="editor-controls-grid">
+        <div class="editor-sections" id="editorSections">
+          <div class="editor-sections-nav" role="tablist" aria-label="Secciones del editor">
+            <button class="editor-section-tab active" type="button" role="tab" aria-selected="true" aria-controls="filters-panel" data-target="filters-panel">🎨 Filtros</button>
+            <button class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="transforms-panel" data-target="transforms-panel">🔄 Transformar</button>
+            <button class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="export-panel" data-target="export-panel">💾 Descargar</button>
+            <button class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="comparison-panel" data-target="comparison-panel">⚖️ Comparar</button>
+            <button class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="crop-panel" data-target="crop-panel">✂️ Recortar</button>
+          </div>
 
       <!-- Panel de Filtros -->
-      <div class="controls-section" id="filters-panel">
-        <h3>🎨 Filtros</h3>
+      <div class="controls-section section-panel active" id="filters-panel" data-section="filters-panel">
+        <button class="section-accordion-trigger" type="button" aria-expanded="true" aria-controls="filters-panel-body" data-target="filters-panel">🎨 Filtros</button>
+        <div class="section-panel-body" id="filters-panel-body">
 
         <!-- Brillo -->
         <div class="filter-control">
@@ -121,10 +129,12 @@
         <!-- Botón Resetear -->
         <button id="reset-filters">↺ Resetear Filtros</button>
       </div>
+      </div>
 
       <!-- Panel de Transformaciones -->
-      <div class="controls-section" id="transforms-panel">
-        <h3>🔄 Transformar</h3>
+      <div class="controls-section section-panel" id="transforms-panel" data-section="transforms-panel">
+        <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="transforms-panel-body" data-target="transforms-panel">🔄 Transformar</button>
+        <div class="section-panel-body" id="transforms-panel-body">
 
         <div class="transform-buttons">
           <!-- Fila 1: Rotaciones -->
@@ -152,10 +162,12 @@
           </div>
         </div>
       </div>
+      </div>
 
       <!-- Panel de Exportación -->
-      <div class="controls-section" id="export-panel">
-        <h3>💾 Descargar</h3>
+      <div class="controls-section section-panel" id="export-panel" data-section="export-panel">
+        <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="export-panel-body" data-target="export-panel">💾 Descargar</button>
+        <div class="section-panel-body" id="export-panel-body">
 
         <!-- Nombre del archivo -->
         <div class="form-group">
@@ -204,10 +216,12 @@
           <span class="download-text">Descargar Imagen</span>
         </button>
       </div>
+      </div>
 
       <!-- Panel de Comparación -->
-      <div class="controls-section" id="comparison-panel">
-        <h3>⚖️ Comparar</h3>
+      <div class="controls-section section-panel" id="comparison-panel" data-section="comparison-panel">
+        <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="comparison-panel-body" data-target="comparison-panel">⚖️ Comparar</button>
+        <div class="section-panel-body" id="comparison-panel-body">
 
         <!-- Botón de toggle comparación -->
         <button id="toggle-comparison" class="btn-comparison">
@@ -234,10 +248,12 @@
           </div>
         </div>
       </div>
+      </div>
 
       <!-- Panel de Recorte -->
-      <div class="controls-section" id="crop-panel">
-        <h3>✂️ Recortar</h3>
+      <div class="controls-section section-panel" id="crop-panel" data-section="crop-panel">
+        <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="crop-panel-body" data-target="crop-panel">✂️ Recortar</button>
+        <div class="section-panel-body" id="crop-panel-body">
 
         <!-- Selector de proporción -->
         <div class="crop-ratio-group">
@@ -279,6 +295,7 @@
           <p>• Mueve el área haciendo clic dentro</p>
           <p>• Redimensiona desde las esquinas</p>
         </div>
+      </div>
       </div>
 
         </div>

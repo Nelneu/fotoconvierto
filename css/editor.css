@@ -178,6 +178,49 @@
   align-items: start;
 }
 
+.editor-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.editor-sections-nav {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+}
+
+.editor-section-tab {
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #555;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editor-section-tab:hover {
+  border-color: #ff6600;
+  color: #ff6600;
+}
+
+.editor-section-tab.active {
+  border-color: #ff6600;
+  background: #ff6600;
+  color: #fff;
+}
+
 .controls-section {
   margin-bottom: 20px;
 }
@@ -200,6 +243,50 @@
   margin: 0;
   color: #666;
   font-size: 14px;
+}
+
+.section-panel {
+  margin: 0;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.section-panel-body {
+  padding: 16px;
+}
+
+.section-accordion-trigger {
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 0;
+  border-bottom: 1px solid #ececec;
+  background: #fafafa;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.section-accordion-trigger.active {
+  color: #ff6600;
+}
+
+/* Desktop: comportamiento tab, solo una sección visible */
+@media (min-width: 769px) {
+  .section-panel {
+    display: none;
+  }
+
+  .section-panel.active {
+    display: block;
+  }
 }
 
 /* =============================================
@@ -298,8 +385,28 @@
     padding: 15px;
   }
 
-  .controls-section h3 {
-    font-size: 16px;
+  .editor-sections-nav {
+    display: none;
+  }
+
+  .section-accordion-trigger {
+    display: flex;
+  }
+
+  .section-panel {
+    border-radius: 10px;
+  }
+
+  .section-panel:not(.active) .section-panel-body {
+    display: none;
+  }
+
+  .section-panel.active .section-panel-body {
+    display: block;
+  }
+
+  .section-panel.active .section-accordion-trigger {
+    background: #fff4ec;
   }
 }
 
