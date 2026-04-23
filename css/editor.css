@@ -180,9 +180,10 @@
 }
 
 .editor-sections {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
   gap: 14px;
+  align-items: start;
 }
 
 .editor-sections-nav {
@@ -190,25 +191,41 @@
   top: 0;
   z-index: 8;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
   padding: 8px;
-  border: 1px solid #ececec;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bg-panel) 92%, #fff);
   backdrop-filter: blur(4px);
+  max-height: calc(95vh - 140px);
+  overflow-y: auto;
 }
 
 .editor-section-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
   border: 1px solid #ddd;
   background: #fff;
   color: #555;
   border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 13px;
+  padding: 10px 12px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: left;
+}
+
+.editor-tab-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.editor-tab-text {
+  flex: 1;
 }
 
 .editor-section-tab:hover {
@@ -252,6 +269,12 @@
   border-radius: 12px;
   background: #fff;
   overflow: hidden;
+  grid-column: 2;
+}
+
+.editor-sections-nav {
+  grid-column: 1;
+  grid-row: 1 / span 6;
 }
 
 .section-panel-body {
@@ -384,6 +407,11 @@
   .editor-controls {
     margin: 15px auto;
     padding: 15px;
+  }
+
+  .editor-sections {
+    display: flex;
+    flex-direction: column;
   }
 
   .editor-sections-nav {
