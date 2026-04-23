@@ -167,8 +167,8 @@
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.4s ease;
-  overflow-y: auto;
-  max-height: calc(95vh - 100px);
+  overflow: visible;
+  max-height: none;
 }
 
 .editor-controls-grid {
@@ -294,7 +294,7 @@
   }
 
   .editor-controls {
-    margin: 15px auto;
+    margin: 15px auto 0;
     padding: 15px;
   }
 
