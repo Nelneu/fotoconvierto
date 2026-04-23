@@ -1,23 +1,21 @@
 body {
   font-family: 'Poppins', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  min-height: 100dvh;
   margin: 0;
+  padding: clamp(12px, 2.5vw, 24px);
+  box-sizing: border-box;
   background: linear-gradient(135deg, #ff9966, #ff5e62);
 }
 
 .card {
   background: #fff;
-  padding: 25px 30px;
+  padding: clamp(18px, 2.2vw, 30px);
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   text-align: center;
   max-width: 1300px;
-  width: 98%;
-  max-height: 95vh;
-  overflow-y: auto;
+  width: min(1300px, 100%);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
@@ -25,9 +23,9 @@ body {
 .workspace {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: clamp(16px, 2vw, 30px);
   align-items: flex-start;
-  margin-top: 20px;
+  margin-top: clamp(14px, 1.8vw, 20px);
 }
 
 .canvas-panel {
