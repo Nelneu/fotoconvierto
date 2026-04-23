@@ -1,3 +1,22 @@
+:root {
+  --bg-surface: #f6f8fb;
+  --bg-panel: #ffffff;
+  --bg-muted: #eef2f8;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
+  --color-primary: #ff6600;
+  --color-primary-hover: #e05500;
+  --color-border: #dbe1ea;
+  --color-border-strong: #c6ced9;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 15px;
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.12);
+  --section-title-size: 1.05rem;
+  --helper-text-size: 0.85rem;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   display: flex;
@@ -9,10 +28,10 @@ body {
 }
 
 .card {
-  background: #fff;
+  background: var(--bg-panel);
   padding: 25px 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   text-align: center;
   max-width: 1300px;
   width: 98%;
@@ -39,23 +58,23 @@ body {
 
 h1 {
   font-size: 1.4rem;
-  color: #333;
+  color: var(--color-text);
   margin-bottom: 15px;
 }
 
 .upload-btn {
   display: inline-block;
-  background: #ff6600;
+  background: var(--color-primary);
   color: #fff;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
 .upload-btn:hover {
-  background: #e05500;
+  background: var(--color-primary-hover);
 }
 
 input[type="file"] {
@@ -84,8 +103,8 @@ input[type="file"] {
 /* --- Estilos para la Barra de Progreso --- */
 #progress-container {
   width: 100%;
-  background-color: #e9ecef;
-  border-radius: 8px;
+  background-color: var(--bg-muted);
+  border-radius: var(--radius-sm);
   margin: 15px 0 5px;
   overflow: hidden;
 }
@@ -93,8 +112,8 @@ input[type="file"] {
 #progress-bar {
   width: 0%;
   height: 10px;
-  background-color: #ff6600; /* Color principal de la marca */
-  border-radius: 8px;
+  background-color: var(--color-primary); /* Color principal de la marca */
+  border-radius: var(--radius-sm);
   transition: width 0.4s ease-in-out; /* Animación vistosa */
 }
 

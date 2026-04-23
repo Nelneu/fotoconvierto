@@ -13,16 +13,18 @@
    ============================================= */
 
 #transforms-panel {
-  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  background: var(--bg-panel);
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
   margin-top: 15px;
 }
 
 #transforms-panel h3 {
   margin: 0 0 15px 0;
-  color: #2c3e50;
+  color: var(--color-text);
+  font-size: var(--section-title-size);
 }
 
 /* =============================================
@@ -52,15 +54,15 @@
   justify-content: center;
   gap: 6px;
   padding: 15px 10px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 10px;
+  background: var(--bg-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
 }
@@ -89,7 +91,9 @@
 /* Estados del botón */
 .btn-transform:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .btn-transform:active {
@@ -118,50 +122,10 @@
 
 /* Label del botón */
 .btn-label {
-  font-size: 13px;
+  font-size: var(--helper-text-size);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-
-/* =============================================
-   COLORES ESPECÍFICOS POR BOTÓN
-   ============================================= */
-
-/* Rotar izquierda - Morado */
-#rotate-left {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-#rotate-left:hover {
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
-}
-
-/* Rotar derecha - Azul */
-#rotate-right {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-#rotate-right:hover {
-  box-shadow: 0 6px 16px rgba(79, 172, 254, 0.5);
-}
-
-/* Voltear horizontal - Rosa */
-#flip-horizontal {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-#flip-horizontal:hover {
-  box-shadow: 0 6px 16px rgba(240, 147, 251, 0.5);
-}
-
-/* Voltear vertical - Verde */
-#flip-vertical {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-#flip-vertical:hover {
-  box-shadow: 0 6px 16px rgba(79, 172, 254, 0.5);
 }
 
 /* =============================================
@@ -273,7 +237,7 @@
 
 @media (prefers-color-scheme: dark) {
   #transforms-panel {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    background: #1f2937;
   }
 
   #transforms-panel h3 {
@@ -287,8 +251,10 @@
 
 /* Indicador visual cuando una transformación está activa */
 .btn-transform.active {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5),
-              0 6px 16px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 25%, transparent),
+              var(--shadow-md);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 /* Efecto de pulso para destacar */
