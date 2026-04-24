@@ -22,7 +22,7 @@
   <div class="card">
     <h1>📸 Sube tu foto</h1>
     <!-- Etiqueta label asociada al input (id correcto) -->
-    <label for="fileInput" class="upload-btn">Elegir imagen</label>
+    <label for="fileInput" class="upload-btn btn btn-primary">Elegir imagen</label>
     <input type="file" id="fileInput" accept="image/*">
 
     <!-- Barra de Progreso -->
@@ -57,12 +57,12 @@
 
       <div class="canvas-panel">
         <!-- Canvas Container con placeholder -->
-        <div id="canvas-container">
-          <canvas id="mainCanvas"></canvas>
-          <div id="placeholder" class="placeholder-visible">📸 Sube una imagen para comenzar</div>
+        <div id="canvas-container" class="canvas-container">
+          <canvas id="mainCanvas" class="main-canvas"></canvas>
+          <div id="placeholder" class="canvas-placeholder placeholder-visible">📸 Sube una imagen para comenzar</div>
         </div>
 
-        <button id="clearBtn">Borrar imagen</button>
+        <button id="clearBtn" class="btn btn-danger">Borrar imagen</button>
       </div>
 
       <!-- Panel de controles del editor (se mostrará cuando haya imagen) -->
@@ -92,7 +92,7 @@
           </div>
 
       <!-- Panel de Filtros -->
-      <div class="controls-section section-panel active" id="filters-panel" data-section="filters-panel">
+      <div id="filters-panel" class="controls-section section-panel panel panel-filters active" data-section="filters-panel">
         <button class="section-accordion-trigger" type="button" aria-expanded="true" aria-controls="filters-panel-body" data-target="filters-panel">🎨 Filtros</button>
         <div class="section-panel-body" id="filters-panel-body">
 
@@ -102,7 +102,7 @@
             <span class="filter-name">☀️ Brillo</span>
             <span class="filter-value" id="brightness-value">100</span>
           </div>
-          <input type="range" id="brightness" min="0" max="200" value="100" step="1">
+          <input type="range" id="brightness" class="range" min="0" max="200" value="100" step="1">
         </div>
 
         <!-- Contraste -->
@@ -111,7 +111,7 @@
             <span class="filter-name">🌗 Contraste</span>
             <span class="filter-value" id="contrast-value">100</span>
           </div>
-          <input type="range" id="contrast" min="0" max="200" value="100" step="1">
+          <input type="range" id="contrast" class="range" min="0" max="200" value="100" step="1">
         </div>
 
         <!-- Saturación -->
@@ -120,7 +120,7 @@
             <span class="filter-name">🎨 Saturación</span>
             <span class="filter-value" id="saturation-value">100</span>
           </div>
-          <input type="range" id="saturation" min="0" max="200" value="100" step="1">
+          <input type="range" id="saturation" class="range" min="0" max="200" value="100" step="1">
         </div>
 
         <!-- Desenfoque -->
@@ -129,7 +129,7 @@
             <span class="filter-name">🌫️ Desenfoque</span>
             <span class="filter-value" id="blur-value">0px</span>
           </div>
-          <input type="range" id="blur" min="0" max="10" value="0" step="0.5">
+          <input type="range" id="blur" class="range" min="0" max="10" value="0" step="0.5">
         </div>
 
         <!-- Escala de Grises -->
@@ -138,27 +138,27 @@
             <span class="filter-name">⚫ Blanco y Negro</span>
             <span class="filter-value" id="grayscale-value">0%</span>
           </div>
-          <input type="range" id="grayscale" min="0" max="100" value="0" step="1">
+          <input type="range" id="grayscale" class="range" min="0" max="100" value="0" step="1">
         </div>
 
         <!-- Botón Resetear -->
-        <button id="reset-filters">↺ Resetear Filtros</button>
+        <button id="reset-filters" class="btn btn-secondary btn-reset-filters">↺ Resetear Filtros</button>
       </div>
       </div>
 
       <!-- Panel de Transformaciones -->
-      <div class="controls-section section-panel" id="transforms-panel" data-section="transforms-panel">
+      <div id="transforms-panel" class="controls-section section-panel panel panel-transforms" data-section="transforms-panel">
         <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="transforms-panel-body" data-target="transforms-panel">🔄 Transformar</button>
         <div class="section-panel-body" id="transforms-panel-body">
 
         <div class="transform-buttons">
           <!-- Fila 1: Rotaciones -->
           <div class="button-row">
-            <button id="rotate-left" class="btn-transform" title="Rotar 90° izquierda">
+            <button id="rotate-left" class="btn-transform btn btn-secondary" title="Rotar 90° izquierda">
               <span class="btn-icon">↶</span>
               <span class="btn-label">Rotar ←</span>
             </button>
-            <button id="rotate-right" class="btn-transform" title="Rotar 90° derecha">
+            <button id="rotate-right" class="btn-transform btn btn-secondary" title="Rotar 90° derecha">
               <span class="btn-icon">↷</span>
               <span class="btn-label">Rotar →</span>
             </button>
@@ -166,11 +166,11 @@
 
           <!-- Fila 2: Volteos -->
           <div class="button-row">
-            <button id="flip-horizontal" class="btn-transform" title="Voltear horizontal">
+            <button id="flip-horizontal" class="btn-transform btn btn-secondary" title="Voltear horizontal">
               <span class="btn-icon">↔️</span>
               <span class="btn-label">Voltear ↔</span>
             </button>
-            <button id="flip-vertical" class="btn-transform" title="Voltear vertical">
+            <button id="flip-vertical" class="btn-transform btn btn-secondary" title="Voltear vertical">
               <span class="btn-icon">↕️</span>
               <span class="btn-label">Voltear ↕</span>
             </button>
@@ -180,20 +180,20 @@
       </div>
 
       <!-- Panel de Exportación -->
-      <div class="controls-section section-panel" id="export-panel" data-section="export-panel">
+      <div id="export-panel" class="controls-section section-panel panel panel-export" data-section="export-panel">
         <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="export-panel-body" data-target="export-panel">💾 Descargar</button>
         <div class="section-panel-body" id="export-panel-body">
 
         <!-- Nombre del archivo -->
         <div class="form-group">
           <label for="filename">Nombre del archivo</label>
-          <input type="text" id="filename" class="text-input" placeholder="mi-foto-editada" value="mi-foto-editada">
+          <input type="text" id="filename" class="text-input input" placeholder="mi-foto-editada" value="mi-foto-editada">
         </div>
 
         <!-- Selector de formato -->
         <div class="form-group">
           <label for="format-select">Formato</label>
-          <select id="format-select" class="format-select">
+          <select id="format-select" class="format-select input">
             <option value="jpeg" selected>JPEG - Comprimido (recomendado)</option>
             <option value="png">PNG - Sin pérdida (mayor tamaño)</option>
             <option value="webp">WebP - Moderno y eficiente</option>
@@ -206,7 +206,7 @@
             <span>Calidad</span>
             <span id="quality-value" class="quality-value">90%</span>
           </label>
-          <input type="range" id="quality-slider" min="1" max="100" value="90" step="1">
+          <input type="range" id="quality-slider" class="range" min="1" max="100" value="90" step="1">
           <div class="quality-hint">
             <span class="hint-low">Menor tamaño</span>
             <span class="hint-high">Mejor calidad</span>
@@ -226,7 +226,7 @@
         </div>
 
         <!-- Botón de descarga -->
-        <button id="download-btn" class="btn-download">
+        <button id="download-btn" class="btn-download btn btn-primary">
           <span class="download-icon">⬇️</span>
           <span class="download-text">Descargar Imagen</span>
         </button>
@@ -234,12 +234,12 @@
       </div>
 
       <!-- Panel de Comparación -->
-      <div class="controls-section section-panel" id="comparison-panel" data-section="comparison-panel">
+      <div id="comparison-panel" class="controls-section section-panel panel panel-comparison" data-section="comparison-panel">
         <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="comparison-panel-body" data-target="comparison-panel">⚖️ Comparar</button>
         <div class="section-panel-body" id="comparison-panel-body">
 
         <!-- Botón de toggle comparación -->
-        <button id="toggle-comparison" class="btn-comparison">
+        <button id="toggle-comparison" class="btn-comparison btn btn-secondary btn-toggle-comparison">
           <span class="btn-icon">👁️</span>
           <span class="btn-text">Ver Original</span>
         </button>
@@ -255,7 +255,7 @@
           <!-- Slider divisor -->
           <div id="split-slider-container" style="display: none;">
             <div id="split-slider-value">50%</div>
-            <input type="range" id="split-slider" min="0" max="100" value="50" step="1">
+            <input type="range" id="split-slider" class="range" min="0" max="100" value="50" step="1">
             <div class="split-labels">
               <span>Original</span>
               <span>Editada</span>
@@ -266,14 +266,14 @@
       </div>
 
       <!-- Panel de Recorte -->
-      <div class="controls-section section-panel" id="crop-panel" data-section="crop-panel">
+      <div id="crop-panel" class="controls-section section-panel panel panel-crop" data-section="crop-panel">
         <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="crop-panel-body" data-target="crop-panel">✂️ Recortar</button>
         <div class="section-panel-body" id="crop-panel-body">
 
         <!-- Selector de proporción -->
         <div class="crop-ratio-group">
           <label for="crop-ratio">Proporción</label>
-          <select id="crop-ratio">
+          <select id="crop-ratio" class="input">
             <option value="free" selected>Libre</option>
             <option value="1">Cuadrado (1:1)</option>
             <option value="1.333">Paisaje (4:3)</option>
@@ -285,18 +285,18 @@
 
         <!-- Botones de recorte -->
         <div class="crop-buttons">
-          <button id="start-crop">
+          <button id="start-crop" class="btn btn-secondary btn-start-crop">
             <span class="btn-icon">✂️</span>
             <span>Iniciar Recorte</span>
           </button>
 
           <!-- Botones de acción (visibles durante recorte) -->
           <div class="crop-action-buttons" id="crop-actions">
-            <button id="apply-crop">
+            <button id="apply-crop" class="btn btn-primary btn-apply-crop">
               <span>✓</span>
               <span>Aplicar</span>
             </button>
-            <button id="cancel-crop">
+            <button id="cancel-crop" class="btn btn-secondary btn-cancel-crop">
               <span>✗</span>
               <span>Cancelar</span>
             </button>

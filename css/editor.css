@@ -24,7 +24,7 @@
   justify-content: center;
   padding: 10px;
   margin-bottom: 8px;
-  background: color-mix(in srgb, var(--bg-panel) 92%, transparent);
+  background: var(--surface-overlay);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   backdrop-filter: blur(4px);
@@ -61,11 +61,11 @@
 .quick-action-btn-primary {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: #fff;
+  color: var(--text-inverse);
 }
 
 .quick-action-btn-primary:hover {
-  color: #fff;
+  color: var(--text-inverse);
   background: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
 }
@@ -83,6 +83,7 @@
    CANVAS CONTAINER
    ============================================= */
 
+.canvas-container,
 #canvas-container {
   position: relative;
   width: 100%;
@@ -99,12 +100,14 @@
   transition: all 0.4s ease;
 }
 
+.canvas-container.has-image,
 #canvas-container.has-image {
   border: 2px solid var(--color-primary);
   background: var(--bg-panel);
   box-shadow: var(--shadow-sm);
 }
 
+.canvas-container:hover,
 #canvas-container:hover {
   transform: scale(1.01);
   box-shadow: var(--shadow-md);
@@ -114,6 +117,7 @@
    CANVAS PRINCIPAL
    ============================================= */
 
+.main-canvas,
 #mainCanvas {
   display: block;
   max-width: 100%;
@@ -124,6 +128,7 @@
   /* El canvas se ocultará cuando no haya imagen */
 }
 
+.canvas-container:not(.has-image) .main-canvas,
 #canvas-container:not(.has-image) #mainCanvas {
   display: none;
 }
@@ -132,6 +137,7 @@
    PLACEHOLDER
    ============================================= */
 
+.canvas-placeholder,
 #placeholder {
   position: absolute;
   top: 50%;
@@ -146,11 +152,13 @@
   user-select: none;
 }
 
+.canvas-placeholder.placeholder-visible,
 #placeholder.placeholder-visible {
   opacity: 1;
 }
 
 /* Ocultar placeholder cuando hay imagen */
+.canvas-container.has-image .canvas-placeholder,
 #canvas-container.has-image #placeholder {
   display: none;
 }
@@ -195,8 +203,8 @@
   gap: 8px;
   padding: 8px;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--bg-panel) 92%, #fff);
+  border-radius: var(--radius-md);
+  background: var(--surface-overlay);
   backdrop-filter: blur(4px);
   max-height: calc(95vh - 140px);
   overflow-y: auto;
@@ -207,9 +215,9 @@
   align-items: center;
   gap: 10px;
   width: 100%;
-  border: 1px solid #ddd;
-  background: #fff;
-  color: #555;
+  border: 1px solid var(--border-default);
+  background: var(--surface-2);
+  color: var(--text-secondary);
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 14px;
@@ -229,14 +237,14 @@
 }
 
 .editor-section-tab:hover {
-  border-color: #ff6600;
-  color: #ff6600;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .editor-section-tab.active {
-  border-color: #ff6600;
-  background: #ff6600;
-  color: #fff;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--text-inverse);
 }
 
 .controls-section {
@@ -265,9 +273,9 @@
 
 .section-panel {
   margin: 0;
-  border: 1px solid #ececec;
-  border-radius: 12px;
-  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
   overflow: hidden;
   grid-column: 2;
 }
@@ -289,9 +297,9 @@
   gap: 10px;
   padding: 14px 16px;
   border: 0;
-  border-bottom: 1px solid #ececec;
-  background: #fafafa;
-  color: #333;
+  border-bottom: 1px solid var(--border-soft);
+  background: var(--surface-1);
+  color: var(--text-primary);
   font-size: 15px;
   font-weight: 600;
   text-align: left;
@@ -299,7 +307,7 @@
 }
 
 .section-accordion-trigger.active {
-  color: #ff6600;
+  color: var(--accent);
 }
 
 /* Desktop: comportamiento tab, solo una sección visible */
@@ -327,16 +335,16 @@
 }
 
 .status-info {
-  color: #2196F3;
+  color: var(--info);
 }
 
 .status-success {
-  color: #4CAF50;
+  color: var(--success);
   font-weight: 600;
 }
 
 .status-error {
-  color: #f44336;
+  color: var(--danger);
   font-weight: 600;
 }
 
@@ -393,13 +401,15 @@
     display: inline;
   }
 
-  #canvas-container {
+  .canvas-container,
+#canvas-container {
     max-width: 100%;
     min-height: 250px;
     margin: 15px auto;
   }
 
-  #placeholder {
+  .canvas-placeholder,
+#placeholder {
     font-size: 18px;
     padding: 0 20px;
   }
@@ -435,7 +445,7 @@
   }
 
   .section-panel.active .section-accordion-trigger {
-    background: #fff4ec;
+    background: color-mix(in srgb, var(--accent) 8%, var(--surface-2));
   }
 }
 
@@ -458,16 +468,19 @@
     font-size: 14px;
   }
 
-  #canvas-container {
+  .canvas-container,
+#canvas-container {
     min-height: 200px;
     border-radius: 8px;
   }
 
-  #placeholder {
+  .canvas-placeholder,
+#placeholder {
     font-size: 16px;
   }
 
-  #mainCanvas {
+  .main-canvas,
+#mainCanvas {
     max-height: 400px;
   }
 }
