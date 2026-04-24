@@ -2,17 +2,13 @@
  * comparison.css - Estilos para el panel de comparación antes/después
  */
 
-/* Panel de comparación */
+.panel-comparison,
 #comparison-panel {
-  background: var(--bg-panel);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
   padding: 20px;
-  box-shadow: var(--shadow-sm);
 }
 
 #comparison-panel h3 {
-  color: var(--color-text);
+  color: var(--text-primary);
   margin: 0 0 15px 0;
   font-size: var(--section-title-size);
   display: flex;
@@ -20,41 +16,18 @@
   gap: 8px;
 }
 
-/* Botón de toggle de comparación */
 #toggle-comparison {
   width: 100%;
   padding: 12px 20px;
-  background: var(--bg-surface);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
   font-size: var(--helper-text-size);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: var(--shadow-sm);
 }
 
-#toggle-comparison:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-  background: var(--bg-panel);
-}
-
-#toggle-comparison:active {
-  transform: translateY(0);
-}
+#toggle-comparison:active { transform: translateY(0); }
 
 #toggle-comparison.active {
-  background: var(--color-primary);
-  color: white;
-  border-color: var(--color-primary);
+  background: var(--accent);
+  color: var(--text-inverse);
+  border-color: var(--accent);
 }
 
 #toggle-comparison:disabled {
@@ -63,27 +36,24 @@
   transform: none;
 }
 
-/* Control de vista dividida */
 #split-view-control {
   margin-top: 15px;
-  background: var(--bg-surface);
-  border: 1px solid var(--color-border);
+  background: var(--surface-1);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
   padding: 15px;
   backdrop-filter: blur(10px);
+  animation: slideDown 0.3s ease;
 }
 
-#split-view-control.hidden {
-  display: none;
-}
+#split-view-control.hidden { display: none; }
 
-/* Checkbox para activar split view */
 .split-toggle {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 15px;
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   font-size: var(--helper-text-size);
   cursor: pointer;
   user-select: none;
@@ -93,108 +63,74 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: var(--color-primary);
+  accent-color: var(--accent);
 }
 
-/* Slider de división */
 #split-slider {
-  width: 100%;
-  height: 8px;
-  border-radius: 4px;
-  background: linear-gradient(to right,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 102, 0, 0.5) 50%,
-    rgba(255, 102, 0, 0.7) 100%
-  );
-  outline: none;
   margin: 10px 0;
   cursor: pointer;
-  -webkit-appearance: none;
+  background: linear-gradient(to right,
+    color-mix(in srgb, var(--surface-2) 30%, transparent) 0%,
+    color-mix(in srgb, var(--surface-2) 50%, transparent) 50%,
+    color-mix(in srgb, var(--accent) 50%, transparent) 50%,
+    color-mix(in srgb, var(--accent) 70%, transparent) 100%
+  );
 }
 
-/* Estilo del thumb del slider - Chrome/Safari */
-#split-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 24px;
-  height: 24px;
-  background: white;
-  border: 3px solid #ff6600;
-  border-radius: 50%;
-  cursor: grab;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease;
-}
-
-#split-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
-}
-
-#split-slider::-webkit-slider-thumb:active {
-  cursor: grabbing;
-  transform: scale(1.1);
-}
-
-/* Estilo del thumb del slider - Firefox */
+#split-slider::-webkit-slider-thumb,
 #split-slider::-moz-range-thumb {
   width: 24px;
   height: 24px;
-  background: white;
-  border: 3px solid #ff6600;
+  background: var(--surface-2);
+  border: 3px solid var(--accent);
   border-radius: 50%;
   cursor: grab;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
 
+#split-slider::-webkit-slider-thumb:hover,
 #split-slider::-moz-range-thumb:hover {
   transform: scale(1.2);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
 }
 
-#split-slider::-moz-range-thumb:active {
+#split-slider:active::-webkit-slider-thumb,
+#split-slider:active::-moz-range-thumb {
   cursor: grabbing;
   transform: scale(1.1);
 }
 
-/* Etiquetas de división */
 .split-labels {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 8px;
   font-size: var(--helper-text-size);
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 .split-labels span {
   padding: 4px 10px;
-  background: var(--bg-muted);
+  background: var(--surface-3);
   border-radius: var(--radius-sm);
   backdrop-filter: blur(5px);
 }
 
-.split-labels span:first-child {
-  color: var(--color-text-muted);
-}
-
 .split-labels span:last-child {
-  background: color-mix(in srgb, var(--color-primary) 15%, white);
-  color: var(--color-primary);
+  background: color-mix(in srgb, var(--accent) 15%, var(--surface-2));
+  color: var(--accent);
   font-weight: 600;
 }
 
-/* Indicador visual cuando está en modo comparación */
 #canvas-container.comparing::before {
   content: 'ORIGINAL';
   position: absolute;
   top: 15px;
   left: 15px;
-  background: rgba(102, 126, 234, 0.9);
-  color: white;
+  background: color-mix(in srgb, var(--info) 80%, transparent);
+  color: var(--text-inverse);
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -208,40 +144,20 @@
 
 #canvas-container.split-view::before {
   content: 'COMPARACIÓN';
-  background: linear-gradient(135deg, #667eea 0%, #ff6600 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--info) 70%, var(--accent) 30%) 0%, var(--accent) 100%);
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Ajuste de posición del canvas para indicadores */
-#canvas-container {
-  position: relative;
-}
+#canvas-container { position: relative; }
 
-/* Responsive - Pantallas pequeñas */
 @media (max-width: 768px) {
-  #comparison-panel {
-    padding: 15px;
-  }
-
-  #toggle-comparison {
-    font-size: 0.9rem;
-    padding: 10px 16px;
-  }
-
-  #split-view-control {
-    padding: 12px;
-  }
-
+  #comparison-panel { padding: 15px; }
+  #toggle-comparison { font-size: 0.9rem; padding: 10px 16px; }
+  #split-view-control { padding: 12px; }
   #canvas-container.comparing::before,
   #canvas-container.split-view::before {
     font-size: 0.75rem;
@@ -249,15 +165,7 @@
     top: 10px;
     left: 10px;
   }
-
-  .split-labels {
-    font-size: 0.8rem;
-  }
-}
-
-/* Animaciones suaves */
-#split-view-control {
-  animation: slideDown 0.3s ease;
+  .split-labels { font-size: 0.8rem; }
 }
 
 @keyframes slideDown {
@@ -275,10 +183,9 @@
   }
 }
 
-/* Posición del valor del slider */
 #split-slider-value {
   text-align: center;
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   font-size: var(--helper-text-size);
   margin-bottom: 5px;
   font-weight: 600;

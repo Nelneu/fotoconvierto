@@ -114,6 +114,45 @@ Patrón de diseño: Modular basado en clases
 
 ---
 
+
+## 🎛️ Mini guía visual (Design System)
+
+### Paleta semántica
+- `--surface-1`: fondo base de app y bloques secundarios.
+- `--surface-2`: superficies elevadas (paneles, tarjetas, controles).
+- `--surface-3`: fondos suaves para hints, tags y estados neutros.
+- `--text-primary` / `--text-secondary`: jerarquía principal de texto.
+- `--accent`: acciones primarias y elementos interactivos activos.
+- `--danger`: acciones destructivas o de riesgo.
+- `--focus-ring`: anillo de enfoque accesible para teclado.
+
+### Spacing
+- Escala recomendada en `style.css`: `--space-1` (4px) a `--space-6` (24px).
+- Para controles y formularios usar especialmente `--space-2`, `--space-3` y `--space-4`.
+- Para separación entre secciones/paneles usar `--space-5` y `--space-6`.
+
+### Tipografía
+- Familia base: `Poppins, sans-serif` (`--font-family-base`).
+- Tamaños clave:
+  - Cuerpo: `--font-size-body`.
+  - Ayuda/labels: `--font-size-helper`.
+  - Títulos de sección: `--font-size-section`.
+
+### Componentes base
+- Botones: `.btn`, `.btn-primary`, `.btn-secondary`, `.btn-danger`.
+- Contenedores: `.panel`.
+- Entradas: `.input`.
+- Sliders: `.range`.
+- Etiquetas contextuales: `.tag`.
+
+### Estados
+- Hover: elevar levemente y reforzar `--accent` en borde/color.
+- Focus visible: usar `--focus-ring` en botones e inputs.
+- Disabled: reducir opacidad y bloquear interacción visualmente.
+- Estado activo: reforzar contraste con `--accent` y texto inverso.
+
+---
+
 ## 📂 Estructura del Proyecto
 
 ```

@@ -2,17 +2,13 @@
  * crop.css - Estilos para la herramienta de recorte
  */
 
-/* Panel de recorte */
+.panel-crop,
 #crop-panel {
-  background: var(--bg-panel);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
   padding: 20px;
-  box-shadow: var(--shadow-sm);
 }
 
 #crop-panel h3 {
-  color: var(--color-text);
+  color: var(--text-primary);
   margin: 0 0 15px 0;
   font-size: var(--section-title-size);
   display: flex;
@@ -20,43 +16,18 @@
   gap: 8px;
 }
 
-/* Selector de proporción */
-.crop-ratio-group {
-  margin-bottom: 15px;
-}
+.crop-ratio-group { margin-bottom: 15px; }
 
 .crop-ratio-group label {
   display: block;
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   font-size: var(--helper-text-size);
   font-weight: 600;
   margin-bottom: 8px;
 }
 
-#crop-ratio {
-  width: 100%;
-  padding: 10px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  background: var(--bg-panel);
-  color: var(--color-text);
-  font-size: var(--helper-text-size);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+#crop-ratio { font-weight: 500; }
 
-#crop-ratio:hover {
-  border-color: var(--color-primary);
-}
-
-#crop-ratio:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
-}
-
-/* Botones de recorte */
 .crop-buttons {
   display: flex;
   flex-direction: column;
@@ -66,32 +37,12 @@
 #start-crop {
   width: 100%;
   padding: 12px 20px;
-  background: var(--bg-surface);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
   font-size: var(--helper-text-size);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: var(--shadow-sm);
 }
 
-#start-crop:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  color: var(--color-primary);
-  border-color: var(--color-primary);
-  background: var(--bg-panel);
-}
-
-#start-crop:active {
-  transform: translateY(0);
-}
+#start-crop:active,
+#apply-crop:active,
+#cancel-crop:active { transform: translateY(0); }
 
 #start-crop:disabled {
   opacity: 0.5;
@@ -99,66 +50,22 @@
   transform: none;
 }
 
-/* Botones de aplicar y cancelar (visibles durante recorte) */
 .crop-action-buttons {
   display: none;
   gap: 10px;
   margin-top: 10px;
 }
 
-.crop-action-buttons.active {
-  display: flex;
-}
+.crop-action-buttons.active { display: flex; }
 
 #apply-crop,
 #cancel-crop {
   flex: 1;
   padding: 12px 16px;
-  border: none;
-  border-radius: var(--radius-sm);
   font-size: var(--helper-text-size);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
 }
 
-#apply-crop {
-  background: var(--color-primary);
-  color: white;
-  box-shadow: var(--shadow-sm);
-}
-
-#apply-crop:hover {
-  background: var(--color-primary-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-#cancel-crop {
-  background: var(--bg-surface);
-  color: var(--color-text-muted);
-  box-shadow: var(--shadow-sm);
-}
-
-#cancel-crop:hover {
-  background: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-#apply-crop:active,
-#cancel-crop:active {
-  transform: translateY(0);
-}
-
-/* Indicador de modo recorte activo */
-#canvas-container.crop-active {
-  cursor: crosshair;
-}
+#canvas-container.crop-active { cursor: crosshair; }
 
 #canvas-container.crop-active::before {
   content: '✂️ RECORTANDO - Arrastra para seleccionar área';
@@ -166,8 +73,8 @@
   top: 15px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 45%, #f093fb) 0%, color-mix(in srgb, var(--danger) 70%, #f5576c) 100%);
+  color: var(--text-inverse);
   padding: 10px 20px;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -180,9 +87,8 @@
   white-space: nowrap;
 }
 
-/* Instrucciones de uso */
 .crop-instructions {
-  background: var(--bg-surface);
+  background: var(--surface-1);
   border-radius: var(--radius-sm);
   padding: 12px;
   margin-top: 15px;
@@ -196,81 +102,40 @@
 }
 
 .crop-instructions p {
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   font-size: var(--helper-text-size);
   line-height: 1.5;
   margin: 0 0 8px 0;
 }
 
-.crop-instructions p:last-child {
-  margin-bottom: 0;
-}
+.crop-instructions p:last-child { margin-bottom: 0; }
+.crop-instructions strong { color: var(--text-primary); font-weight: 600; }
 
-.crop-instructions strong {
-  color: var(--color-text);
-  font-weight: 600;
-}
+.btn-icon { font-size: 1.2rem; }
 
-/* Iconos en botones */
-.btn-icon {
-  font-size: 1.2rem;
-}
-
-/* Estado deshabilitado */
 #crop-panel.disabled {
   opacity: 0.6;
   pointer-events: none;
 }
 
-/* Proporciones populares con iconos */
 .ratio-option {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* Responsive - Pantallas pequeñas */
 @media (max-width: 768px) {
-  #crop-panel {
-    padding: 15px;
-  }
-
-  #start-crop {
-    font-size: 0.9rem;
-    padding: 10px 16px;
-  }
-
-  #apply-crop,
-  #cancel-crop {
-    font-size: 0.85rem;
-    padding: 10px 14px;
-  }
-
-  #canvas-container.crop-active::before {
-    font-size: 0.75rem;
-    padding: 8px 16px;
-    top: 10px;
-  }
-
-  .crop-instructions {
-    padding: 10px;
-  }
-
-  .crop-instructions p {
-    font-size: 0.8rem;
-  }
+  #crop-panel { padding: 15px; }
+  #start-crop { font-size: 0.9rem; padding: 10px 16px; }
+  #apply-crop, #cancel-crop { font-size: 0.85rem; padding: 10px 14px; }
+  #canvas-container.crop-active::before { font-size: 0.75rem; padding: 8px 16px; top: 10px; }
+  .crop-instructions { padding: 10px; }
+  .crop-instructions p { font-size: 0.8rem; }
 }
 
-/* Animaciones */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 @keyframes slideDown {
@@ -288,42 +153,32 @@
   }
 }
 
-/* Hint de proporción seleccionada */
 .crop-hint {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 8px;
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.15);
+  background: color-mix(in srgb, var(--surface-2) 15%, transparent);
   border-radius: var(--radius-sm);
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   font-size: var(--helper-text-size);
 }
 
-.crop-hint-label {
-  font-weight: 600;
-}
+.crop-hint-label { font-weight: 600; }
+.crop-hint-value { font-weight: 400; opacity: 0.9; }
 
-.crop-hint-value {
-  font-weight: 400;
-  opacity: 0.9;
-}
-
-/* Ejemplos de uso para proporciones */
 .ratio-examples {
   display: none;
   margin-top: 10px;
   padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: color-mix(in srgb, var(--surface-2) 10%, transparent);
   border-radius: 6px;
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: color-mix(in srgb, var(--text-inverse) 90%, transparent);
 }
 
-.ratio-examples.active {
-  display: block;
-}
+.ratio-examples.active { display: block; }
 
 .ratio-examples ul {
   margin: 5px 0 0 0;
@@ -331,13 +186,11 @@
   list-style-type: none;
 }
 
-.ratio-examples li {
-  margin-bottom: 4px;
-}
+.ratio-examples li { margin-bottom: 4px; }
 
 .ratio-examples li::before {
   content: '•';
-  color: #ff6600;
+  color: var(--accent);
   font-weight: bold;
   display: inline-block;
   width: 1em;
