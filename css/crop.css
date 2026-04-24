@@ -68,7 +68,7 @@
 #canvas-container.crop-active { cursor: crosshair; }
 
 #canvas-container.crop-active::before {
-  content: '✂️ RECORTANDO - Arrastra para seleccionar área';
+  content: 'RECORTANDO - Arrastra para seleccionar área';
   position: absolute;
   top: 15px;
   left: 50%;
