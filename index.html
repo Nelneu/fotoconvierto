@@ -26,14 +26,14 @@
     <input type="file" id="fileInput" accept="image/*">
 
     <!-- Barra de Progreso -->
-    <div id="progress-container" style="display: none;">
-      <div id="progress-bar"></div>
+    <div id="progress-container" style="display: none;" aria-hidden="true">
+      <div id="progress-bar" role="progressbar" aria-label="Progreso de carga" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
     </div>
-    <div id="status-text"></div>
+    <div id="status-text" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <div class="workspace">
       <div class="canvas-panel workspace-canvas-stage">
-        <div class="quick-actions-bar" id="quickActionsBar" aria-label="Acciones rápidas del editor">
+        <div class="quick-actions-bar" id="quickActionsBar" role="toolbar" aria-label="Acciones rápidas del editor">
           <button id="quick-download" class="quick-action-btn quick-action-btn-primary" type="button" title="Exportar imagen editada">
             <span class="quick-action-icon icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v11"></path><path d="m7 11 5 5 5-5"></path><path d="M5 20h14"></path></svg></span>
             <span class="quick-action-label quick-action-label-desktop">Exportar</span>
@@ -69,33 +69,33 @@
         <summary class="workspace-tools-toggle"><span class="icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M9 7V5h6v2"></path><path d="M3 12h18"></path></svg></span> Herramientas</summary>
 
       <!-- Panel de controles del editor (se mostrará cuando haya imagen) -->
-      <div class="editor-controls" id="editorControls" style="display: none;">
-        <div class="editor-sections" id="editorSections">
+      <div class="editor-controls" id="editorControls" style="display: none;" aria-hidden="true">
+        <div class="editor-sections" id="editorSections" aria-live="polite">
           <div class="editor-sections-nav" role="tablist" aria-label="Secciones del editor">
-            <button class="editor-section-tab active" type="button" role="tab" aria-selected="true" aria-controls="filters-panel" data-target="filters-panel">
+            <button id="tab-filters" class="editor-section-tab active" type="button" role="tab" aria-selected="true" aria-controls="filters-panel" tabindex="0" data-target="filters-panel">
               <span class="editor-tab-icon icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2"></circle><circle cx="14" cy="7" r="2"></circle><circle cx="17" cy="12" r="2"></circle><path d="M12 20a8 8 0 1 1 0-16h1a3 3 0 0 1 0 6h-1a3 3 0 1 0 0 6Z"></path></svg></span>
               <span class="editor-tab-text">Filtros</span>
             </button>
-            <button class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="transforms-panel" data-target="transforms-panel">
+            <button id="tab-transforms" class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="transforms-panel" tabindex="-1" data-target="transforms-panel">
               <span class="editor-tab-icon icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4v6h-6"></path><path d="M3 20v-6h6"></path><path d="M20 10a8 8 0 0 0-14-3"></path><path d="M4 14a8 8 0 0 0 14 3"></path></svg></span>
               <span class="editor-tab-text">Ajustar</span>
             </button>
-            <button class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="export-panel" data-target="export-panel">
+            <button id="tab-export" class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="export-panel" tabindex="-1" data-target="export-panel">
               <span class="editor-tab-icon icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"></path><path d="m7 10 5 5 5-5"></path><path d="M4 19h16"></path></svg></span>
               <span class="editor-tab-text">Exportar</span>
             </button>
-            <button class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="comparison-panel" data-target="comparison-panel">
+            <button id="tab-comparison" class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="comparison-panel" tabindex="-1" data-target="comparison-panel">
               <span class="editor-tab-icon icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16"></path><path d="M5 8h14"></path><path d="m8 8-3 5h6l-3-5Z"></path><path d="m16 8-3 5h6l-3-5Z"></path></svg></span>
               <span class="editor-tab-text">Comparar</span>
             </button>
-            <button class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="crop-panel" data-target="crop-panel">
+            <button id="tab-crop" class="editor-section-tab" type="button" role="tab" aria-selected="false" aria-controls="crop-panel" tabindex="-1" data-target="crop-panel">
               <span class="editor-tab-icon icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"></circle><circle cx="6" cy="18" r="2"></circle><path d="M20 4 8 16"></path><path d="m8 8 12 12"></path></svg></span>
               <span class="editor-tab-text">Recortar</span>
             </button>
           </div>
 
       <!-- Panel de Filtros -->
-      <div id="filters-panel" class="controls-section section-panel panel panel-filters active" data-section="filters-panel">
+      <div id="filters-panel" class="controls-section section-panel panel panel-filters active" data-section="filters-panel" role="tabpanel" aria-labelledby="tab-filters" aria-hidden="false">
         <button class="section-accordion-trigger" type="button" aria-expanded="true" aria-controls="filters-panel-body" data-target="filters-panel"><span class="icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="2"></circle><circle cx="14" cy="7" r="2"></circle><circle cx="17" cy="12" r="2"></circle><path d="M12 20a8 8 0 1 1 0-16h1a3 3 0 0 1 0 6h-1a3 3 0 1 0 0 6Z"></path></svg></span> Filtros</button>
         <div class="section-panel-body" id="filters-panel-body">
 
@@ -105,7 +105,7 @@
             <span class="filter-name">Brillo</span>
             <span class="filter-value" id="brightness-value">100</span>
           </div>
-          <input type="range" id="brightness" class="range" min="0" max="200" value="100" step="1">
+          <input type="range" id="brightness" class="range" min="0" max="200" value="100" step="1" aria-label="Control de brillo">
         </div>
 
         <!-- Contraste -->
@@ -114,7 +114,7 @@
             <span class="filter-name">Contraste</span>
             <span class="filter-value" id="contrast-value">100</span>
           </div>
-          <input type="range" id="contrast" class="range" min="0" max="200" value="100" step="1">
+          <input type="range" id="contrast" class="range" min="0" max="200" value="100" step="1" aria-label="Control de contraste">
         </div>
 
         <!-- Saturación -->
@@ -123,7 +123,7 @@
             <span class="filter-name">Saturación</span>
             <span class="filter-value" id="saturation-value">100</span>
           </div>
-          <input type="range" id="saturation" class="range" min="0" max="200" value="100" step="1">
+          <input type="range" id="saturation" class="range" min="0" max="200" value="100" step="1" aria-label="Control de saturación">
         </div>
 
         <!-- Desenfoque -->
@@ -132,7 +132,7 @@
             <span class="filter-name">Desenfoque</span>
             <span class="filter-value" id="blur-value">0px</span>
           </div>
-          <input type="range" id="blur" class="range" min="0" max="10" value="0" step="0.5">
+          <input type="range" id="blur" class="range" min="0" max="10" value="0" step="0.5" aria-label="Control de desenfoque">
         </div>
 
         <!-- Escala de Grises -->
@@ -141,7 +141,7 @@
             <span class="filter-name">Blanco y negro</span>
             <span class="filter-value" id="grayscale-value">0%</span>
           </div>
-          <input type="range" id="grayscale" class="range" min="0" max="100" value="0" step="1">
+          <input type="range" id="grayscale" class="range" min="0" max="100" value="0" step="1" aria-label="Control de blanco y negro">
         </div>
 
         <!-- Botón Resetear -->
@@ -150,7 +150,7 @@
       </div>
 
       <!-- Panel de Transformaciones -->
-      <div id="transforms-panel" class="controls-section section-panel panel panel-transforms" data-section="transforms-panel">
+      <div id="transforms-panel" class="controls-section section-panel panel panel-transforms" data-section="transforms-panel" role="tabpanel" aria-labelledby="tab-transforms" aria-hidden="true" hidden>
         <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="transforms-panel-body" data-target="transforms-panel"><span class="icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4v6h-6"></path><path d="M3 20v-6h6"></path><path d="M20 10a8 8 0 0 0-14-3"></path><path d="M4 14a8 8 0 0 0 14 3"></path></svg></span> Ajustar</button>
         <div class="section-panel-body" id="transforms-panel-body">
 
@@ -183,7 +183,7 @@
       </div>
 
       <!-- Panel de Exportación -->
-      <div id="export-panel" class="controls-section section-panel panel panel-export" data-section="export-panel">
+      <div id="export-panel" class="controls-section section-panel panel panel-export" data-section="export-panel" role="tabpanel" aria-labelledby="tab-export" aria-hidden="true" hidden>
         <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="export-panel-body" data-target="export-panel"><span class="icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"></path><path d="m7 10 5 5 5-5"></path><path d="M4 19h16"></path></svg></span> Exportar</button>
         <div class="section-panel-body" id="export-panel-body">
 
@@ -237,28 +237,28 @@
       </div>
 
       <!-- Panel de Comparación -->
-      <div id="comparison-panel" class="controls-section section-panel panel panel-comparison" data-section="comparison-panel">
+      <div id="comparison-panel" class="controls-section section-panel panel panel-comparison" data-section="comparison-panel" role="tabpanel" aria-labelledby="tab-comparison" aria-hidden="true" hidden>
         <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="comparison-panel-body" data-target="comparison-panel"><span class="icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16"></path><path d="M5 8h14"></path><path d="m8 8-3 5h6l-3-5Z"></path><path d="m16 8-3 5h6l-3-5Z"></path></svg></span> Comparar</button>
         <div class="section-panel-body" id="comparison-panel-body">
 
         <!-- Botón de toggle comparación -->
-        <button id="toggle-comparison" class="btn-comparison btn btn-secondary btn-toggle-comparison">
+        <button id="toggle-comparison" class="btn-comparison btn btn-secondary btn-toggle-comparison" aria-pressed="false" aria-controls="split-view-control" aria-expanded="false">
           <span class="btn-icon icon icon-md" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
           <span class="btn-text">Comparar</span>
         </button>
 
         <!-- Control de vista dividida -->
-        <div id="split-view-control" class="hidden">
+        <div id="split-view-control" class="hidden" aria-hidden="true">
           <!-- Checkbox para activar split view -->
           <label class="split-toggle">
-            <input type="checkbox" id="split-mode-toggle">
+            <input type="checkbox" id="split-mode-toggle" aria-controls="split-slider-container" aria-expanded="false">
             <span>Vista dividida (antes/después)</span>
           </label>
 
           <!-- Slider divisor -->
-          <div id="split-slider-container" style="display: none;">
+          <div id="split-slider-container" style="display: none;" aria-hidden="true">
             <div id="split-slider-value">50%</div>
-            <input type="range" id="split-slider" class="range" min="0" max="100" value="50" step="1">
+            <input type="range" id="split-slider" class="range" min="0" max="100" value="50" step="1" aria-label="Posición de comparación dividida">
             <div class="split-labels">
               <span>Original</span>
               <span>Editada</span>
@@ -269,7 +269,7 @@
       </div>
 
       <!-- Panel de Recorte -->
-      <div id="crop-panel" class="controls-section section-panel panel panel-crop" data-section="crop-panel">
+      <div id="crop-panel" class="controls-section section-panel panel panel-crop" data-section="crop-panel" role="tabpanel" aria-labelledby="tab-crop" aria-hidden="true" hidden>
         <button class="section-accordion-trigger" type="button" aria-expanded="false" aria-controls="crop-panel-body" data-target="crop-panel"><span class="icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"></circle><circle cx="6" cy="18" r="2"></circle><path d="M20 4 8 16"></path><path d="m8 8 12 12"></path></svg></span> Recortar</button>
         <div class="section-panel-body" id="crop-panel-body">
 
@@ -288,13 +288,13 @@
 
         <!-- Botones de recorte -->
         <div class="crop-buttons">
-          <button id="start-crop" class="btn btn-secondary btn-start-crop">
+          <button id="start-crop" class="btn btn-secondary btn-start-crop" aria-controls="crop-actions crop-instructions" aria-expanded="false">
             <span class="btn-icon icon icon-md" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"></circle><circle cx="6" cy="18" r="2"></circle><path d="M20 4 8 16"></path><path d="m8 8 12 12"></path></svg></span>
             <span>Recortar</span>
           </button>
 
           <!-- Botones de acción (visibles durante recorte) -->
-          <div class="crop-action-buttons" id="crop-actions">
+          <div class="crop-action-buttons" id="crop-actions" aria-hidden="true">
             <button id="apply-crop" class="btn btn-primary btn-apply-crop">
               <span class="icon icon-sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"></path></svg></span>
               <span>Aplicar</span>
@@ -307,7 +307,7 @@
         </div>
 
         <!-- Instrucciones de uso -->
-        <div class="crop-instructions" id="crop-instructions">
+        <div class="crop-instructions" id="crop-instructions" aria-hidden="true">
           <p><strong>Instrucciones:</strong></p>
           <p>• Arrastra para crear el área de recorte</p>
           <p>• Mueve el área haciendo clic dentro</p>
