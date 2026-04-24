@@ -6,7 +6,7 @@
 #export-panel {
   padding: 20px;
   margin-top: 15px;
-  animation: fadeInUp 0.4s ease;
+  transition: box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease;
 }
 
 #export-panel h3 {
@@ -40,7 +40,7 @@
   padding-right: 36px;
 }
 
-#quality-control { transition: all 0.3s ease; }
+#quality-control { transition: opacity 160ms ease, transform 160ms ease; }
 #quality-control.hidden { display: none; }
 
 #quality-slider {
@@ -111,18 +111,19 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text-inverse) 35%, transparent), transparent);
-  transition: left 0.5s;
+  opacity: 0;
+  transition: opacity 160ms ease;
 }
 
-.btn-download:hover::before { left: 100%; }
+.btn-download:hover::before { opacity: 1; }
 
 .btn-download:hover {
-  transform: translateY(-3px);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
 .btn-download:active {
-  transform: translateY(-1px);
+  transform: translateY(0);
   box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
@@ -142,7 +143,7 @@
 
 @keyframes downloadSuccess {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.02); }
 }
 
 .btn-download.success {

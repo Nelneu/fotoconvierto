@@ -414,6 +414,7 @@ function updateImageInfo() {
  */
 function handleDownload() {
   if (!imageExporter || !canvasManager.hasImage()) {
+    showStatus('No hay imagen para descargar todavía.', 'error');
     console.error('No hay imagen para descargar');
     return;
   }
@@ -426,19 +427,44 @@ function handleDownload() {
   const filename = filenameInput?.value || imageExporter.generateDefaultFilename();
   const format = formatSelect?.value || 'jpeg';
   const quality = qualitySlider ? parseFloat(qualitySlider.value) / 100 : 0.9;
+  const extension = imageExporter.getFormatInfo(format)?.extension || format;
+  const qualityPercent = Math.round(quality * 100);
+  const downloadLabel = `${filename}.${extension}`;
+
+  showStatus(`Preparando descarga de ${downloadLabel} (${qualityPercent}% de calidad)...`, 'info');
 
   // Feedback visual
   if (downloadBtn) {
+    downloadBtn.disabled = true;
     downloadBtn.classList.add('success');
     setTimeout(() => {
       downloadBtn.classList.remove('success');
+      downloadBtn.disabled = false;
     }, 600);
   }
 
-  // Descargar
-  imageExporter.downloadImage(filename, format, quality);
+  try {
+    const didStart = imageExporter.downloadImage(filename, format, quality);
 
-  console.log(`📥 Descargando: ${filename}.${format} (calidad: ${Math.round(quality * 100)}%)`);
+    if (!didStart) {
+      showStatus('No se pudo iniciar la descarga. Revisa formato y estado de la imagen.', 'error');
+      return;
+    }
+
+    showStatus(`Descarga iniciada: ${downloadLabel}`, 'info');
+    setTimeout(() => {
+      showStatus(`Descarga completada: ${downloadLabel}`, 'success');
+    }, 650);
+
+    console.log(`📥 Descargando: ${downloadLabel} (calidad: ${qualityPercent}%)`);
+  } catch (error) {
+    console.error('❌ Error al descargar imagen:', error);
+    showStatus(`Error al descargar ${downloadLabel}. Inténtalo de nuevo.`, 'error');
+    if (downloadBtn) {
+      downloadBtn.classList.remove('success');
+      downloadBtn.disabled = false;
+    }
+  }
 }
 
 /**

@@ -43,7 +43,7 @@
   border-radius: var(--radius-sm);
   padding: 15px;
   backdrop-filter: blur(10px);
-  animation: slideDown 0.3s ease;
+  transition: opacity 160ms ease, transform 160ms ease, border-color 160ms ease;
 }
 
 #split-view-control.hidden { display: none; }
@@ -86,19 +86,19 @@
   border-radius: 50%;
   cursor: grab;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
 #split-slider::-webkit-slider-thumb:hover,
 #split-slider::-moz-range-thumb:hover {
-  transform: scale(1.2);
+  transform: scale(1.05);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
 }
 
 #split-slider:active::-webkit-slider-thumb,
 #split-slider:active::-moz-range-thumb {
   cursor: grabbing;
-  transform: scale(1.1);
+  transform: scale(1.03);
 }
 
 .split-labels {
