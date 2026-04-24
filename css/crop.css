@@ -82,7 +82,7 @@
   letter-spacing: 0.5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 10;
-  animation: fadeIn 0.3s ease;
+  transition: opacity 160ms ease, transform 160ms ease;
   backdrop-filter: blur(10px);
   white-space: nowrap;
 }
@@ -98,7 +98,7 @@
 
 .crop-instructions.active {
   display: block;
-  animation: slideDown 0.3s ease;
+  transition: opacity 160ms ease, transform 160ms ease;
 }
 
 .crop-instructions p {

@@ -89,11 +89,11 @@ class ImageExporter {
           setTimeout(() => URL.revokeObjectURL(url), 100);
 
           console.log(`✅ Imagen descargada: ${link.download}`);
-          return true;
         },
         formatInfo.mimeType,
         quality
       );
+      return true;
     } catch (error) {
       console.error('Error al descargar imagen:', error);
       return false;

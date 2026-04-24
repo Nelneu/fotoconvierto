@@ -43,7 +43,7 @@
   font-size: var(--text-xs);
   line-height: var(--leading-tight);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
 }
 
 .quick-action-btn:hover {
@@ -113,7 +113,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s ease;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
 }
 
 .canvas-container.has-image,
@@ -125,7 +125,7 @@
 
 .canvas-container:hover,
 #canvas-container:hover {
-  transform: scale(1.01);
+  transform: none;
   box-shadow: var(--shadow-md);
 }
 
@@ -164,7 +164,7 @@
   text-align: center;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 160ms ease;
   user-select: none;
 }
 
@@ -191,7 +191,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  animation: fadeIn 0.4s ease;
+  transition: box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease;
   overflow-y: auto;
   max-height: calc(95vh - 150px);
 }
@@ -240,7 +240,7 @@
   font-weight: 600;
   line-height: var(--leading-tight);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
   text-align: left;
 }
 
@@ -350,7 +350,7 @@
   font-weight: 500;
   font-size: var(--helper-text-size);
   min-height: 18px;
-  transition: all 0.3s ease;
+  transition: opacity 160ms ease;
 }
 
 .status-info {
@@ -369,32 +369,6 @@
 
 /* =============================================
    ANIMACIONES
-   ============================================= */
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* =============================================
-   RESPONSIVE DESIGN
    ============================================= */
 
 @media (max-width: 768px) {
@@ -546,5 +520,5 @@
 
 .fade-out {
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 160ms ease;
 }
