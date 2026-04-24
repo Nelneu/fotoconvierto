@@ -171,6 +171,28 @@ function setupEditorSectionNavigation() {
       const targetId = tab.dataset.target;
       setActiveEditorSection(targetId);
     });
+
+    tab.addEventListener('keydown', (event) => {
+      if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const tabs = Array.from(editorSectionTabs);
+      const currentIndex = tabs.indexOf(tab);
+      const isHorizontal = ['ArrowLeft', 'ArrowRight'].includes(event.key);
+      const isVertical = ['ArrowUp', 'ArrowDown'].includes(event.key);
+
+      if (!isHorizontal && !isVertical && !['Home', 'End'].includes(event.key)) return;
+
+      let nextIndex = currentIndex;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = tabs.length - 1;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % tabs.length;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+
+      const nextTab = tabs[nextIndex];
+      if (!nextTab) return;
+      setActiveEditorSection(nextTab.dataset.target);
+      nextTab.focus();
+    });
   });
 
   editorSectionAccordionTriggers.forEach((trigger) => {
@@ -194,12 +216,15 @@ function setActiveEditorSection(sectionId) {
   editorSectionPanels.forEach((panel) => {
     const isActive = panel.id === sectionId;
     panel.classList.toggle('active', isActive);
+    panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+    panel.toggleAttribute('hidden', !isActive);
   });
 
   editorSectionTabs.forEach((tab) => {
     const isActive = tab.dataset.target === sectionId;
     tab.classList.toggle('active', isActive);
     tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    tab.setAttribute('tabindex', isActive ? '0' : '-1');
   });
 
   editorSectionAccordionTriggers.forEach((trigger) => {
@@ -441,16 +466,21 @@ function setupComparisonListeners() {
       if (isComparing) {
         toggleBtn.classList.add('active');
         toggleBtn.querySelector('.btn-text').textContent = 'Ver Editada';
+        toggleBtn.setAttribute('aria-pressed', 'true');
+        toggleBtn.setAttribute('aria-expanded', 'true');
         canvasContainer.classList.add('comparing');
         quickCompareBtn?.classList.add('active');
 
         // Mostrar controles de split view
         if (splitViewControl) {
           splitViewControl.classList.remove('hidden');
+          splitViewControl.setAttribute('aria-hidden', 'false');
         }
       } else {
         toggleBtn.classList.remove('active');
         toggleBtn.querySelector('.btn-text').textContent = 'Ver Original';
+        toggleBtn.setAttribute('aria-pressed', 'false');
+        toggleBtn.setAttribute('aria-expanded', 'false');
         canvasContainer.classList.remove('comparing');
         canvasContainer.classList.remove('split-view');
         quickCompareBtn?.classList.remove('active');
@@ -458,6 +488,7 @@ function setupComparisonListeners() {
         // Ocultar controles de split view
         if (splitViewControl) {
           splitViewControl.classList.add('hidden');
+          splitViewControl.setAttribute('aria-hidden', 'true');
         }
 
         // Resetear split mode
@@ -466,6 +497,7 @@ function setupComparisonListeners() {
         }
         if (splitSliderContainer) {
           splitSliderContainer.style.display = 'none';
+          splitSliderContainer.setAttribute('aria-hidden', 'true');
         }
       }
     });
@@ -485,7 +517,9 @@ function setupComparisonListeners() {
         // Mostrar slider
         if (splitSliderContainer) {
           splitSliderContainer.style.display = 'block';
+          splitSliderContainer.setAttribute('aria-hidden', 'false');
         }
+        splitModeToggle.setAttribute('aria-expanded', 'true');
       } else {
         // Desactivar modo split, volver a toggle
         imageComparison.exitSplitMode();
@@ -495,7 +529,9 @@ function setupComparisonListeners() {
         // Ocultar slider
         if (splitSliderContainer) {
           splitSliderContainer.style.display = 'none';
+          splitSliderContainer.setAttribute('aria-hidden', 'true');
         }
+        splitModeToggle.setAttribute('aria-expanded', 'false');
       }
     });
   }
@@ -544,12 +580,15 @@ function setupCropListeners() {
         startCropBtn.style.display = 'none';
         if (cropActions) {
           cropActions.classList.add('active');
+          cropActions.setAttribute('aria-hidden', 'false');
         }
 
         // Mostrar instrucciones
         if (cropInstructions) {
           cropInstructions.classList.add('active');
+          cropInstructions.setAttribute('aria-hidden', 'false');
         }
+        startCropBtn.setAttribute('aria-expanded', 'true');
 
         // Agregar clase al canvas container
         canvasContainer.classList.add('crop-active');
@@ -633,12 +672,15 @@ function exitCropMode() {
   }
   if (cropActions) {
     cropActions.classList.remove('active');
+    cropActions.setAttribute('aria-hidden', 'true');
   }
 
   // Ocultar instrucciones
   if (cropInstructions) {
     cropInstructions.classList.remove('active');
+    cropInstructions.setAttribute('aria-hidden', 'true');
   }
+  startCropBtn?.setAttribute('aria-expanded', 'false');
 
   // Remover clase del canvas container
   canvasContainer.classList.remove('crop-active');
@@ -771,6 +813,8 @@ function handleClearImage() {
   if (toggleBtn) {
     toggleBtn.classList.remove('active');
     toggleBtn.querySelector('.btn-text').textContent = 'Ver Original';
+    toggleBtn.setAttribute('aria-pressed', 'false');
+    toggleBtn.setAttribute('aria-expanded', 'false');
   }
   quickCompareBtn?.classList.remove('active');
 
@@ -838,6 +882,7 @@ function simulateProgress() {
 function updateProgress(percent) {
   if (progressBar) {
     progressBar.style.width = `${percent}%`;
+    progressBar.setAttribute('aria-valuenow', String(percent));
   }
   if (statusText && percent < 100) {
     statusText.textContent = `Cargando ${percent}%`;
@@ -850,7 +895,9 @@ function updateProgress(percent) {
 function showProgress() {
   if (progressContainer) {
     progressContainer.style.display = 'block';
+    progressContainer.setAttribute('aria-hidden', 'false');
     progressBar.style.width = '0%';
+    progressBar.setAttribute('aria-valuenow', '0');
   }
 }
 
@@ -860,6 +907,7 @@ function showProgress() {
 function hideProgress() {
   if (progressContainer) {
     progressContainer.style.display = 'none';
+    progressContainer.setAttribute('aria-hidden', 'true');
   }
 }
 
@@ -915,6 +963,7 @@ function hidePlaceholder() {
 function showEditorControls() {
   if (editorControls) {
     editorControls.style.display = 'block';
+    editorControls.setAttribute('aria-hidden', 'false');
   }
 }
 
@@ -924,5 +973,6 @@ function showEditorControls() {
 function hideEditorControls() {
   if (editorControls) {
     editorControls.style.display = 'none';
+    editorControls.setAttribute('aria-hidden', 'true');
   }
 }
